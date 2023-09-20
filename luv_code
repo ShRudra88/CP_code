@@ -1,0 +1,3119 @@
+
+*** next kono boro contest er age luv code + cp code + others code mile nijer final codebook banate hbe
+** jekono code kore change kore kore dekha asole ki hocce
+******Code age nije koro then tutorial
+
+#####  prefix sum  ######
+
+#include<bits/stdc++.h>
+using namespace std;
+
+// ** fact using prefix sum // O(N)
+const int M = 1e9+7;
+const int N = 1e5+10;       
+long long fact[N];
+
+int main()
+{
+    fact[0]=1;
+    for(int i=1;i<N;i++)
+    {
+        fact[i]=fact[i-1]*i;
+    }
+    int test;
+    cin>>test;
+    while(test--)
+    {
+        int n;
+        cin>>n;
+        cout<<fact[n]<<endl;
+    }
+    return 0;
+}
+
+#include<bits/stdc++.h>
+using namespace std;
+const int N = 1e5+10;
+int hsh[N][26];
+/*
+input: 
+2
+5 5
+abcec
+1 2
+2 5
+3 5
+1 5
+1 4
+5 5
+aabbc
+1 2
+2 5
+3 5
+1 5
+1 4
+output : 
+NO
+NO
+YES
+NO
+NO
+YES
+NO
+YES
+YES
+YES
+*/
+int main()
+{
+    fast();
+    ll test,n,sum,num,i,j,ans,a,b,c,d,x,y,cnt=0;
+    string s,s1;
+
+    cin>>test;
+    while(test--)
+    {
+        for(i=0;i<N;i++)
+        {
+            for(j=0;j<26;j++)
+            {
+                hsh[i][j]=0;
+            }
+        }
+		cin>>n>>b;
+		cin>>s;
+		for(i=0;i<n;i++){
+            hsh[i+1][s[i]-'a']++;
+		}
+		for(i=0;i<26;i++){
+            for(j=1;j<=n;j++)
+            {
+                hsh[j][i]+=hsh[j-1][i];
+            }
+		}
+		while(b--)
+        {
+            cin>>x>>y;
+            ll odd_count = 0;
+            for(i=0;i<26;i++)
+            {
+                ll chact = hsh[y][i]-hsh[x-1][i];
+                if(chact%2==1)odd_count++;
+            }
+            if(odd_count>1)no
+            else yes
+        }
+
+    }
+    return 0;
+}
+
+
+######## Recurtion  #####
+
+// sum of aray using recursion
+int sum(int n,int aa[])
+{
+    if(n<0)return 0;
+
+    return sum(n-1,aa)+aa[n];
+}
+// digit_sum
+int digit_sum(int n)
+{
+    if(n==0)return 0;
+    return digit_sum(n/10)+n%10;
+}
+//number of digit
+int num_of_digit(int n)
+{
+    if(n==0)return 0;
+    return num_of_digit(n/10)+1;
+}
+// sum of even number up to n
+int sum_of_even(int n)
+{
+    if(n%2==1)n--;
+    if(n==0)return 0;
+    return sum_of_even(n-2)+n;
+}
+#include<bits/stdc++.h>
+using namespace std;
+
+int super_Digit(string s, int n) {
+    if(s.length() == 1){
+        return stoi(s);
+    }
+    long long sum = 0;
+    for(long long i=0;i<s.length();i++){
+        sum = sum + (s[i] - '0');
+    }
+    sum = sum*n;
+    return super_Digit(to_string(sum), 1);
+
+}
+int main()
+{
+    int n;
+    string s;
+    cin>>s>>n;
+    cout<<super_Digit(s,n)<<endl;
+}
+
+
+//sentence reverse using recurtion
+#include<stdio.h>
+void howcow()
+{
+    char c;
+    scanf("%c",&c);
+    if(c!='\n')
+    {
+        howcow();
+        printf("%c",c);
+    }
+}
+int main()
+{
+    printf("Enter the sentence : ");
+    howcow();
+
+    return 0;
+}
+
+// ** PALINDROME USING RECURSION **
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isPalRec(char str[], int a, int b)
+{
+    if(a==b)return true;
+    
+    if(str[a]!=str[b])return false;
+    
+    if(a<b+1)return isPalRec(str, a+1,b-1);
+    
+    return true;
+}
+bool isPalindrome(char str[])
+{
+    int n = strlen(str);
+    
+    if(n==0)return true;
+    
+    return isPalRec(str, 0, n-1);
+}
+int main()
+{
+    char str[] = "Rudra";
+    
+    if(isPalindrome(str))cout<<"Yes\n";
+    else cout<<"No\n";
+    
+    return 0;
+}
+
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string>valid;
+
+void generate_(string &s, int open, int close)
+{
+    //cout<<s<<endl;
+    if(open==0 && close==0)
+    {
+        valid.push_back(s);
+        return ;
+    }
+    if(open>0)
+    {
+        s.push_back('(');
+        generate_(s,open-1,close);
+        s.pop_back();
+    }
+    if(close>0)
+    {
+        if(open<close)
+        {
+            s.push_back(')');
+            generate_(s, open, close-1);
+            s.pop_back();
+        }
+    }
+}
+int main()
+{
+    string s;
+    int n;
+    cin>>n;
+    generate_(s,n,n);
+
+    return 0;
+}
+
+
+//   ***** MERGE SORT  ******
+
+#include<iostream>
+using namespace std;
+const int N = 1e5+10;
+int a[N];
+
+void merge_(int l, int r, int mid)
+{
+    int l_sz = mid-l+1;
+    int L[l_sz+1];
+    int r_sz = r-mid;
+    int R[r_sz + 1];
+
+    for(int i=0;i<l_sz;i++)
+    {
+        L[i]=a[i+l_sz];
+    }
+    for(int i=0;i<r_sz;i++)
+    {
+        R[i]=a[i+mid+1];
+    }
+    L[l_sz]=R[r_sz]=INT_MAX;
+
+    int l_i = 0;
+    int r_i = 0;
+
+    for(int i=l ; i<=r ; i++)
+    {
+        if(L[l_i]<=R[r_i]){
+                a[l]=L[l_i];
+            l_i++;
+        }
+        else {
+            a[l]=R[r_i];
+            r_i++;
+        }
+    }
+
+}
+void merge_sort(int l, int r)
+{
+    if(l==r)return ;
+    int mid = (l+r)/2;
+    merge_sort(l,mid);
+    merge_sort(mid+1,r);
+    merge_(l,r,mid);
+}
+int main()
+{
+    int i,n;
+
+    cin>>n;
+    int a[n];
+    for(i=0;i<n;i++)cin>>a[i];
+
+    merge_sort(0,n-1);
+
+    for(i=0;i<n;i++)cout<<a[i]<< " ";
+
+    cout<<endl;
+}
+
+
+##### STL #######
+
+ ///***SET **
+
+int main()
+{
+ 
+    set<int, greater<int> > s1;
+    s1.insert(10);  // insert O(log(n))
+    s1.insert(5);
+    s1.insert(12);
+    s1.insert(4);
+ 
+    for (auto i : s1) {
+        cout << i << ' ';  // output : 12 10 5 4 
+    }
+    return 0;
+}
+
+/// **** VECTOR ***
+
+int main()
+{
+    fast();
+    ll test;
+    ll n,i;
+    cin>>n;
+    ll aa[n];
+    vector<ll>v(n);
+    for(i=0;i<n;i++)cin>>aa[i];
+
+//    ll min_value = *min_element(v.begin(),v.end());
+//    cout<<min_value<<endl;
+
+//    ll max_value = *max_element(v.begin(),v.end());
+//    cout<<max_value<<endl;
+
+//    ll sum = accumulate(v.begin(),v.end(),10);
+//    cout<<sum<<endl;
+
+//    ll count_num = count(v.begin(),v.end(),1);
+//    cout<<count_num<<endl;
+
+//    auto it = *find(v.begin(),v.end(),2);
+//    cout<<(it)<<endl;
+//    if(it==v.end())cout<<2<<" is not found"<<endl;
+
+    // array reverse
+    reverse(aa,aa+n); // vector hoile (v.rbegin(),v.rend());
+    for(i=0;i<n;i++)cout<<aa[i]<<" ";
+
+    return 0;
+}
+
+
+**** UPPER BOUND & LOWER BOUND IN STL
+
+   cin>>n;
+    vector<ll>v;
+    for(i=0;i<n;i++)
+    {
+        cin>>a;
+        v.push_back(a);
+    }
+    sort(v.begin(),v.end());
+    a=lower_bound(v.begin(),v.end(),6)-v.begin();
+    b=upper_bound(v.begin(),v.end(),6)-v.begin();
+
+    cout<<a<<endl<<b<<endl;
+
+element sort kora thakle O(log n)
+sort kora na thakle O(n)
+int main()
+{
+    int n,i;
+    cin>>n;
+    vector<int>v(n);
+    for(int i=0;i<n;i++)cin>>v[i];
+    sort(v.begin(),v.end());
+    for(i=0;i<n;i++)cout<<v[i]<<" ";
+
+    cout<<endl;
+
+    auto ptr = upper_bound(v.begin(),v.end(),26);
+    if(ptr == v.end())
+    {
+        cout <<"Not found";
+    }
+    else cout<<(*ptr)<<endl;
+
+    return 0;
+}
+
+
+**** ARRAY OF VECTOR ******
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void print_vec(vector<int> &v)
+{
+    cout << "Size : " << v.size() << endl;
+
+    for(int i=0;i<v.size();i++)
+    {
+        cout << v[i]<<endl;
+    }
+    cout << endl;
+}
+int main()
+{
+    int n,a,i,j,x;
+    cin>>n;
+    vector<int>v[n]; // nmber of rows fixed(n), nmbr of columns dynamic
+    for(i=0;i<n;i++)
+    {
+        cin>>a;
+        for(j=0;j<a;j++)
+        {
+            cin>>x;
+            v[i].push_back(x);
+        }
+    }
+    for(i=0;i<n;i++)print_vec(v[i]);
+
+}
+
+
+ //  ****VECTOR OF VECTOR *****
+ 
+void print_vec(vector<int> v)
+{
+    cout << "Size : " << v.size() << endl;
+
+    for(int i=0;i<v.size();i++)
+    {
+        cout << v[i]<<" ";
+    }
+    cout << endl;
+}
+int main()
+{
+    int N;
+    cin>>N;
+    vector<vector<int>> v; // nmber of rows & columns dynamic
+
+    for(int i=0;i<N;i++)
+    {
+        int n;
+        cin>>n;
+        vector<int>temp;
+        for(int j=0;j<n;j++)
+        {
+            int x;
+            cin>>x;
+            temp.push_back(x);
+        }
+        v.push_back(temp);
+    }
+    for(int i=0;i<N;i++)
+    {
+        print_vec(v[i]);
+    }
+
+    return 0;
+}
+
+
+
+//  ****PAIR *****
+
+pair<int, char> PAIR1;
+  
+    // first part of the pair
+    PAIR1.first = 100;
+    // second part of the pair
+    PAIR1.second = 'G';
+  
+    cout << PAIR1.first << " ";
+    cout << PAIR1.second << endl;
+
+pair<int, string>p;
+    p={2,"abcd"};
+    pair<int,string>&p1=p;
+    p1.first = 3;
+    cout<<p.first << " " << p.second << endl; // 3 abcd
+    int a[] = {1,2,3};
+    int b[] = {2,3,4};
+    pair<int, int> p_array[3];
+    p_array[0]={1,2};
+    p_array[1]={2,3};
+    p_array[2]={3,4};
+    swap(p_array[0],p_array[2]);
+    for(int i=0;i<3;i++)
+    {
+        cout<<p_array[i].first<<" "<<p_array[i].second<<endl;
+    }
+    //3 4
+    //2 3
+    //1 2
+}
+ // *** comparator function for pair ***
+
+bool cmp(pair<ll,ll>p1, pair<ll,ll>p2)
+{
+    if(p1.first != p2.first)
+    {
+        if(p1.first < p2.first)return true;  // return true mane swap korbe je condition dewa ase oi onujayi
+        else return false;
+    }else {
+        if(p1.second > p2.second)return true;
+        else return false;
+    }
+}
+// same like operer ta
+bool cmp(pair<ll,ll>p1, pair<ll,ll>p2)
+{
+    if(p1.first != p2.first)
+    {
+        return p1.first < p2.first;  // ja lagbe oita return krte hbe bakisob automatic hye jabe
+    }
+    return p1.second > p2.second;
+}
+int main()
+{
+    fast();
+    ll test,n,sum,num,i,j,ans,a,b,c,d,x,y,cnt=0;
+    string s,s1;
+    cin>>n;
+    vector<pair<ll,ll>>v(n);
+    for(i=0;i<n;i++)
+    {
+        cin>>v[i].first>>v[i].second;
+    }
+    sort(v.begin(),v.end(),cmp);
+    for(i=0;i<n;i++)
+    {
+        cout<<v[i].first<<" "<<v[i].second<<endl;
+    }
+    return 0;
+}
+
+*** VECTOR OF PAIR ***
+
+#include<bits/stdc++.h>
+using namespace std;
+bool sortby(pair<int,int> &a, pair<int,int> &b)
+{
+    return (a.second < b.second);
+}
+void print_vec(vector<pair<int,int>> v)
+{
+    cout << "Size : " << v.size() << endl;
+
+    for(int i=0;i<v.size();i++)
+    {
+        cout << v[i].first<<" "<<v[i].second<<endl;
+    }
+    cout << endl;
+}
+
+int main()
+{
+    vector<pair<int,int>> v;
+    int i;
+
+    int a[]={10, 1,20, 1};
+    int b[]={40, 0,23, 0};
+
+    for(i=0;i<4;i++)
+    {
+        v.push_back({a[i],b[i]});
+    }
+    cout<<"Before sorting\n";
+    print_vec(v);
+
+    sort(v.begin(),v.end(), sortby);
+    cout<<"After sorting\n";
+    print_vec(v);
+
+    return 0;
+}
+
+
+// *** MAP ***
+
+int main()
+{
+    map<int, string>m;
+    m[1]="abc"; // insert O(log(n))
+    m[3]="cdc";
+    m[5]="mokbul";
+    m[7]="a";
+    m[10]="rudra";
+    for(auto u : m){ // O(nlog(n))
+        cout << u.first << " " << u.second<<endl;
+    }
+}
+
+***// STACK ****
+
+// **** NEXT GREATER ELEMENT USING STACK ***
+
+vector<int>NGE(vector<int>v)
+{
+    vector<int>nge(v.size());
+    stack<int>st;
+    for(int i=0;i<v.size();i++)
+    {
+        while(!st.empty() && v[i]>v[st.top()]){
+            nge[st.top()]=i;
+            st.pop();
+             }
+             st.push(i);
+    }
+
+    while(!st.empty()){
+        nge[st.top()]=-1;
+        st.pop();
+    }
+    return nge;
+}
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int> v(n);
+    for(int i=0; i< n; i++)
+    {
+        cin>>v[i];
+    }
+    vector<int> nge = NGE(v);
+
+    for(int i=0; i<n; i++)
+    {
+        cout << v[i] << " " <<(nge[i] == -1 ? -1 : v[nge[i]])<<endl;
+    }
+}
+
+// ** BALANCE BRACKET STRING CHEQUE **
+
+string isBalanced(string s)
+{
+    stack<char>st;
+    for(char bracket : s)
+    {
+        if(symbols[bracket]<0)st.push(bracket);
+        else
+        {
+            if(st.empty())return "NO";
+            char top = st.top();
+            st.pop();
+            if(symbols[top]+symbols[bracket]!=0)
+            {
+                return "NO";
+            }
+        }
+    }
+    if(st.empty())return "YES";
+    else return "NO";
+}
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        string s;
+        cin>>s;
+        cout<<isBalanced(s)<<endl;
+    }
+
+    return 0;
+}
+
+
+//**** PRIORITY QUEUE ****
+
+priority_queue<int> numbers;
+
+  // add items to priority_queue
+  numbers.push(1);
+  numbers.push(20);
+  numbers.push(7);
+
+  cout << "Priority Queue: ";
+
+  // display all elements of numbers
+  while(!numbers.empty()) {
+    cout << numbers.top() << ", ";   
+    numbers.pop();
+  }
+
+  cout << endl;
+
+#########Binary seach ######
+
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int> v(n); // vector must be sorted for binary search
+    for(int i=0;i<n;i++)
+    {
+        cin>>v[i];
+    }
+    int to_find;
+    cin >> to_find;
+
+    int lo = 0, hi = n-1;
+
+    int mid;
+    while(hi-lo>1)
+    {
+        int mid = (hi + lo) /2 ;
+        if(v[mid]<to_find)lo=mid+1;
+        else hi=mid;
+    }
+    if(v[lo]==to_find)cout << lo <<endl;
+    else if(v[hi]==to_find)cout << hi <<endl;
+    else cout <<"NOt found "<<endl;
+
+    return 0;
+}
+
+//*** sqrt find using binary search
+#include<bits/stdc++.h>
+using namespace std;
+
+double eps = 1e-6; //(6-1)=5 ghor prjnto accurate asbe
+// joto ghor prjnto accurate lagbe tor 1e^-(toto)hbe ekhne 6
+
+int main()
+{
+    double x;
+    cin>>x;
+    double lo = 1, hi = x, mid;
+
+    while(hi-lo>eps)
+    {
+        mid=(hi+lo)/2;
+        if(mid*mid<x)lo=mid;
+        else hi = mid;
+    }
+    cout<<setprecision(10)<<lo<<endl; //ekhane hi == low hbe tai hi same ans dekhabe
+    cout<<pow(x, 1.0/2)<<endl;
+}
+
+
+//** nth root find using binary search
+double eps = 1e-6;
+double multiply(double mid, int n)
+{
+    double ans=1;
+    for(int i=1;i<=n;i++)ans*=mid;
+
+    return ans;
+}
+int main()
+{
+    double x;
+    int n; // nth root find
+    cin>>x>>n;
+    double lo = 1, hi = x, mid;
+
+    while(hi-lo>eps)
+    {
+        mid=(hi+lo)/2;
+        if(multiply(mid,n)<x)lo=mid;
+        else hi = mid;
+    }
+    cout<<setprecision(10)<<lo<<endl; //ekhane hi == low hbe tai hi same ans dekhabe
+    cout<<pow(x, 1.0/n)<<endl;
+}
+
+
+#######Bit Manipulation ######
+
+https://codeforces.com/blog/entry/73490
+https://codeforces.com/blog/entry/73558
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    cout<<INT_MAX<<endl;
+    int a = (1LL << 31) - 1; // 1 bit sign er jonne
+    cout<<a<<endl;
+    unsigned int b = (1LL<<32)-1;
+    cout<<b<<endl;
+    // output: 2147483647
+               2147483647
+               4294967295
+    return 0;
+}
+
+
+**// SUBSET GENERATOR using BIT in O(n*2^n)
+
+vector<vector<ll>>subsets(vector<ll>&nums)
+{
+    ll n = nums.size();
+    int subset1=(1<<n);
+    vector<vector<ll>>subsets;
+    for(int mask=0;mask<subset1;mask++)
+    {
+        vector<ll>subset;
+        for(ll i=0;i<n;i++)
+        {
+            if((mask&(1<<i))!=0) // find set bit(1) 
+                subset.push_back(nums[i]);
+        }
+        subsets.push_back(subset);
+    }
+    return subsets;
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    vector<ll>v(n);
+    for(int i=0;i<n;i++)
+    {
+        cin>>v[i];
+    }
+    auto all_sub = subsets(v);
+    for(auto subset : all_sub)
+    {
+        for(int ele : subset)
+        {
+            cout<<ele<<" ";
+        }
+        cout<<endl;
+    }
+    return 0;
+}
+
+// *** int to bin
+
+void printBin(int num)
+{
+    for(int i=10;i>=0;i--)
+    {
+        cout<<((num>>i)&1);
+    }
+    cout<<endl;
+}
+int main()
+{
+    int n=9;
+
+    printBin(n);
+
+    // ith bit set or unset
+    if((n&(1<<i))==0)cout<<"unset\n";
+    else cout<<"set\n";
+
+    // number of set
+    int cnt=0;
+    for(int i=31;i>=0;i--)
+    {
+        if((n&(1<<i))!=0)cnt++;
+    }
+    cout<<"number of set bit : "<<cnt<<endl;
+    // another process
+    cnt=__builtin_popcount(n);  // for int value
+    cout<<"number of set bit : "<<cnt<<endl;
+
+    // bit set (0->1)  ith i=2 here;;
+    printBin(n|(1<<2));
+    printBin(1<<2);
+
+    // bit unset(1->0)  ith i=3 here;
+    printBin(n);
+    printBin(n&(~(1<<3)));
+
+    // toggle (0->1/1->0)  ith i=1 here;
+    printBin(n);
+    printBin(n^(1<<1));
+
+// upper to lower// lower to upper
+for(char c='A';c<='Z';c++)
+    {
+        cout<<c<<endl;
+        printBin(int(c));
+    }
+for(char c='a';c<='z';c++)
+    {
+        cout<<c<<endl;
+        printBin(int(c));
+    }
+
+    char ch = 'A';
+    char ch1 = ch | (1<<5);
+    cout<<ch1<<endl;  // coutput : a
+
+    cout<<char(ch1 & (~(1<<5)))<<endl;// coutput : A
+
+
+    char ch3 = 'B';
+    cout<<char(ch3 | ' ')<<endl; // output b
+
+    char ch4 = 'd';
+    cout<<char(ch4 & '_')<<endl; // output D
+
+    return 0;
+}
+
+//****** XOR operation
+
+    int a=4, b=6;
+    cout<<a<<" "<<b<<endl;
+    a=a^b;
+    b=a^b;
+    cout<<a<<" "<<b<<endl;
+    a=a^b;
+    cout<<a<<" "<<b<<endl;
+
+
+    int n;
+    cin>>n;
+    int x;
+    int ans=0;
+    for(int i=0;i<n;i++)
+    {
+        cin>>x;  // input all the number twice or more except one
+        ans^=x;
+    }
+    cout<<ans<<endl;  //output: which number occur only once
+
+
+######## Number theory ########
+
+if __gcd(a,b)=c , c is divisible by abs(a-b)
+
+// *** GCD 
+int gcd(int a,int b) // O(log(N))  //__gcd(a,b)
+{
+    if(b==0)return a;
+    return gcd(b,a%b);
+}
+
+
+// ** BINARY EXPONENTIAL **
+
+#include<bits/stdc++.h>
+using namespace std;
+#define M 1e9+7
+#define  ll  long long int
+ll bin_ex(ll n,ll a)
+{ // recursive code // O(log(a))
+    if(a==0)return 1;
+    long long res = bin_ex(n,a/2);
+    if(a&1){
+        return (n*((res*res)%M))%M;
+    }
+    return (res*res)%M;
+}
+ll bin_ex_iterative(ll a,ll b)// O(log(b))
+{
+    // iterative method // best way to find pow(a,b)
+    ll ans=1;
+
+    while(b)
+    {
+        if(b&1)ans=(ans*a)%M;
+
+        a=(a*a)%M;
+        b>>=1;
+    }
+    return ans;
+}
+int main()
+{
+    cout<<bin_ex(2,7)<<endl; // calc : 2 to the pow 7
+
+    double x = pow(2,7); 
+    //cout<<x<<endl;
+    printf("%lf\n",x);// pow function double return kore tai binary exponential best poddhoti
+
+    return 0;
+}
+
+// a>=10*18 / 2^1024, M>=10*18 hoile jog er maddhome gun
+
+ll bin_ex_iterative(ll a,ll b) O(log^2(n))
+{
+    ll ans=1;
+    while(b)
+    {
+        if(b&1)ans=bin_mul(ans,a);
+
+        a=bin_mul(a,a);
+        b>>=1;
+    }
+    return ans;
+
+}
+ll bin_mul(ll a, ll b) // multiplying 2 number using binary concept
+{
+    ll ans=0;
+    while(b>0)
+    {
+        if(b&1)ans=(ans+a)%M;
+
+        a=(a+a)%M;
+        b>>=1;
+    }
+    return ans;
+
+}
+
+//***MODULAR MULTIPLICATIVE INVERSE***
+
+const int M = 1e9+7;
+ll bin_ex_iterative(ll a,ll b,ll m)// O(log(b))
+{
+    // iterative method // best way to find pow(a,b)
+    ll ans=1;
+
+    while(b)
+    {
+        if(b&1)ans=(ans*a)%M;
+
+        a=(a*a)%M;
+        b>>=1;
+    }
+    return ans;
+}
+int main()
+{
+    ans= bin_ex_iterative(2,M-2,M);
+    cout << ans <<endl;
+    return 0;
+}
+
+
+// ****FACTOR & DIVISOR & PRIME ****
+
+#include<bits/stdc++.h>
+using namespace std;
+//number of divisor and sum of divisors //O(sqrt(n))
+int main()
+{
+    int n;
+    cin>>n;
+    int ct=0;
+    int sum=0;
+    for(int i=1;i*i<=n;i++) // i<=sqrt(n)
+    {
+        if(n%i==0)
+        {
+            cout << i << " " << n/i << endl;
+            ct++;
+            sum+=i;
+            if(n/i!=i){
+                    ct++;
+                sum+=n/i; 
+            }
+            
+        }
+    }
+    cout<<ct << " " << sum <<endl;
+}
+
+// ** PRIME FACTORIZATION **** tc : O(n)
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int>prime_factors;
+    for(int i=2;i<=n;i++)
+    {
+        while(n%i==0){
+            prime_factors.push_back(i);
+            n /= i;
+        }
+    }
+    for(auto prime : prime_factors)
+    {
+        cout << prime <<" ";  // 36 -> 2,2,3,3
+    }cout<<endl;
+}
+
+// ****PRIME FACTORIZATIO **** tc : O(sqrt(n))
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int>prime_factors;
+    for(int i=2;i*i<=n;i++)
+    {
+        while(n%i==0){
+            prime_factors.push_back(i);
+            n /= i;
+        }
+    }
+    if(n>1){
+        prime_factors.push_back(n);
+    }
+    for(auto prime : prime_factors)
+    {
+        cout << prime <<" ";  // 24 -> 2,2,2,3
+    }cout<<endl;
+}
+
+
+// *** PRIME USING SIEVE *** tc : O(N*(log(log(N))))
+
+const int N = 1e7+10;
+vector<bool>isPrime(N,1);
+
+int main()
+{
+    isPrime[0]=isPrime[1]=false;
+
+    for(int i=2;i*i<N;i++)
+    {
+        if(isPrime[i]==true)
+        {
+            for(int j=2*i; j<N; j+=i)
+            {
+                isPrime[j]=false;
+            }
+        }
+    }
+    for(int i=1;i<100;i++){
+            cout<< i << " ";
+        if(isPrime[i])cout<<"prime"<<endl;
+        else cout<<"Not prime"<<endl;
+    }
+}
+
+***// highest prime && lowest prime for all  ***
+***// prime factors in tc : O(log(n))
+const int N = 1e7+10;
+vector<bool>isPrime(N,1);
+vector<int>lp(N,0),hp(N,0);
+
+int main()
+{
+    isPrime[0]=isPrime[1]=false;
+
+    for(int i=2;i<N;i++)
+    {
+        if(isPrime[i]==true)
+        {
+            lp[i]=hp[i]=i;
+            for(int j=2*i; j<N; j+=i)
+            {
+                isPrime[j]=false;
+                hp[j]=i;
+                if(lp[j]==0){
+                    lp[j]=i;
+                }
+            }
+        }
+    }
+//    for(int i=1;i<50;i++){
+//            cout<<lp[i]<<" "<<hp[i]<<endl; // lowest prime & highest prime
+//    }
+    int num;
+    cin>>num;
+    vector<int>prime_factors;
+
+    while(num>1){ //prime_factors in O(log n)
+        int prime_factor = hp[num];
+        while(num%prime_factor == 0)
+        {
+            num /= prime_factor;
+            prime_factors.push_back(prime_factor);
+        }
+    }
+    for(auto factor : prime_factors)
+    {
+        cout << factor << " ";  // 24-> 3,2,2,2
+    }
+
+}
+// distinc prime factor's vector using highest prime -sieve
+vector<int>distickPF(int x)
+{
+    vector<int>ans;
+    while(x>1)
+    {
+        int pf = hp[x];
+        while(x%pf == 0)
+        {
+            x/=pf;
+        }
+        ans.push_back(i);
+    }
+    return ans;
+}
+
+// divisors of all number
+const int N = 1e5+10;
+vector<int> divisors[N];
+int sum[N];
+int main()
+{
+    for(int i=2; i<N ; i++)
+    {
+        for(int j=i ; j<N ; j+=i)
+        {
+            divisors[j].push_back(j);
+            sum[j]+=i; // sum of divisors
+        }
+    }
+    for(int i=0;i<10;i++)
+    {
+        for(auto u : divisors[i])
+        {
+            cout<<u<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+#### GRAPH / TRESS  #######
+
+->Representation
+->Traversal
+->Algorithm
+
+Representation
+  -Matrix
+  -List i.arrays of vectors
+       ii. vectors of vectors
+
+Traversal
+  -DFS
+  -BFS
+  
+Algorithms
+  -Dijkstra
+  -Bellam ford
+  -disjoint set union
+  -minimum spanning tree
+  -direct a cyclic graph
+  -topological sort
+
+
+//Graph Represensation // Adjacency matrix unweighted
+// not a good process because Space c : O(n^2)
+const int N = 1e3+10;
+int graph[N][N];
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int v1,v2;
+        cin>>v1>>v2;
+        graph[v1][v2]=1;
+        graph[v2][v1]=1;
+    }
+    return 0;
+}
+//***Graph Represensation // Adjacency Matrix O(n*n)
+// weighted
+const int N = 1e3+10;
+int graph1[N][N];
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int v1,v2,wt;
+        cin>>v1>>v2>>wt;
+        
+        graph2[v1][v2]=wt;
+        graph2[v2][v1]=wt;
+    }
+    return 0;
+}
+
+
+//Graph Represensation // Adjacency ListO(N+M)
+// unweight
+
+const int N = 1e3+10;
+vector<int> graph2[N];
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int v1,v2;
+        cin>>v1>>v2;
+        
+        graph2[v1].push_back(v2);
+        graph2[v2].push_back(v1);
+    }
+    return 0;
+}
+//***Graph Represensation // Adjacency List
+// weighted
+const int N = 1e3+10;
+int graph1[N][N];
+vector<pair<ll,ll>> graph2[N];
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int v1,v2,wt;
+        cin>>v1>>v2>>wt;
+        
+        graph2[v1].push_back({v2,wt);
+        graph2[v2].push_back({v1,wt});
+    }
+    return 0;
+}
+
+*** DFS ***
+void dfs(int vertex)
+{
+    //cout<<vertex<<endl;
+    vis[vertex] = true;
+    for(int child : g[vertex])
+    {
+        if(vis[child])continue;
+        dfs(child);
+    }
+}
+
+****// number of connected components using dfs
+
+const int N = 1e5+10;
+vector<int>g[N];
+bool vis[N];
+
+void dfs(int vertex)
+{
+    //cout<<vertex<<endl;
+    vis[vertex] = true;
+    for(int child : g[vertex])
+    {
+        if(vis[child])continue;
+        dfs(child);
+    }
+}
+
+int main()
+{
+    int n, m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int v1,v2;
+        cin>>v1>>v2;
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+    }
+    int cnt = 0;
+    for(int i=1; i<=n; i++)
+    {
+        if(vis[i])continue;
+        dfs(i);
+        cnt++;
+    }
+    cout<<cnt<<endl; // number of connected components
+    return 0;
+}
+
+// ** store connected components using dfs
+
+const int N = 1e5+10;
+vector<int>g[N];
+bool vis[N];
+vector<vector<int>>cc;
+vector<int>current_cc;
+
+void dfs(int vertex)
+{
+    //cout<<vertex<<endl;
+    vis[vertex] = true;
+    current_cc.push_back(vertex);
+    for(int child : g[vertex])
+    {
+        if(vis[child])continue;
+        dfs(child);
+    }
+}
+
+int main()
+{
+    int n, m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int v1,v2;
+        cin>>v1>>v2;
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+    }
+    int cnt = 0;
+    for(int i=1; i<=n; i++)
+    {
+        if(vis[i])continue;
+        current_cc.clear();
+        dfs(i);
+        cc.push_back(current_cc);
+        cnt++;
+    }
+    cout<<cc.size()<<endl; // number of connected components
+    for(auto u : cc)
+    {
+        for(auto vertex : u) // vertex in each component
+        {
+            cout<<vertex<<" ";
+        }cout<<endl;
+    }cout<<endl;
+    return 0;
+}
+
+
+// ** is_there any cycle in graph? yes/no  (using dfs)
+
+const int N = 1e5+10;
+vector<int>g[N];
+bool vis[N];
+
+bool dfs(int vertex, int par)
+{
+    //cout<<vertex<<endl;
+    vis[vertex] = true;
+    bool isLoopExists = false;
+    for(int child : g[vertex])
+    {
+        if(vis[child] && child == par)continue;
+        if(vis[child])return true;
+        isLoopExists |= dfs(child,vertex); // or -> 1 ta true hoile all return true
+    }
+    return isLoopExists;
+}
+
+int main()
+{
+    int n, m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int v1,v2;
+        cin>>v1>>v2;
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+    }
+    bool ifLoopExists = false;
+    for(int i=1; i<=n; i++)
+    {
+        if(vis[i])continue;
+        if(dfs(i,0)){
+            ifLoopExists = true;
+        }
+    }
+    if(ifLoopExists)cout<<"Yes\n";
+    else cout<<"No\n";
+    return 0;
+}
+
+//*** depth and height of vertex in graph
+const int N = 1e5+10;
+vector<int>g[N];
+int depth[N], height[N];
+
+void dfs(int vertex, int par)
+{
+    for(int child : g[vertex])
+    {
+        if(child == par)continue;
+        depth[child]=depth[vertex]+1;
+        dfs(child,vertex);
+        height[vertex]=max(height[vertex], height[child]+1);
+    }
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    for(int i=0;i<n-1;i++) // n vertices -> n-1 edges
+    {
+        int v1,v2;
+        cin>>v1>>v2;
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+    }
+    dfs(1,0);
+    for(int i=1;i<=n;i++)
+    {
+        cout<<depth[i]<<" "<<height[i]<<endl;
+    }
+
+    return 0;
+}
+
+// *** subtree sum + even count in a subtree 
+// precomputation in graph
+
+Input:
+13 // n=13, vertex 12 ->(n-1)
+1 2
+1 3
+1 13
+2 5
+3 4
+5 6
+5 7
+5 8
+8 12
+4 9
+4 10
+10 11
+
+output:
+91 6
+40 4
+37 2
+34 2
+38 3
+6 1
+7 0
+20 2
+9 0
+21 1
+11 0
+12 1
+13 0
+const int N = 1e6+7;
+int subtree_sum[N];
+int even_ct[N];
+
+vector<int>g[N];
+
+void dfs(int vertex, int par)
+{
+    if(vertex%2==0)even_ct[vertex]++;
+    subtree_sum[vertex] += vertex;
+
+    for(int child : g[vertex])
+    {
+        if(child==par)continue;
+        dfs(child, vertex);
+
+        subtree_sum[vertex] += subtree_sum[child];
+        even_ct[vertex] += even_ct[child];
+    }
+
+}
+
+int main()
+{
+    int n;;
+    cin>>n;
+    for(int i=0;i<n-1;i++)
+    {
+        int x, y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    dfs(1,0);
+    for(int i=1;i<=n;i++)
+    {
+        cout<<subtree_sum[i]<< " "<<even_ct[i]<<endl;
+    }
+
+    int q;
+//    while(q--)
+//    {
+//        int v;
+//        cin>>v;
+//        cout<<subtree_sum[v]<< " "<<even_ct[v]<<endl;
+//    }
+}
+
+//** diameter of a tree
+Input:
+13 // n=13, vertex 12 ->(n-1)
+1 2
+1 3
+1 13
+2 5
+3 4
+5 6
+5 7
+5 8
+8 12
+4 9
+4 10
+10 11
+
+output : 8
+const int N = 1e6+7;
+int depth[N];
+vector<int>g[N];
+
+void dfs(int v, int par=-1)
+{
+    for(int child : g[v])
+    {
+        if(child == par)continue;
+        depth[child]=depth[v]+1;
+        dfs(child,v);
+    }
+}
+int main()
+{
+    int n;
+    cin>>n;
+    for(int i=0;i<n-1;i++)
+    {
+        int x, y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    dfs(1);
+
+    int mx_depth = -1;
+    int mx_d_node;
+    for(int i=1;i<=n;i++)
+    {
+        if(mx_depth < depth[i])
+        {
+            mx_depth = depth[i];
+            mx_d_node = i;
+        }
+        depth[i] = 0;
+    }
+    dfs(mx_d_node);
+    mx_depth = -1;
+    for(int i=1;i<=n;i++)
+    {
+        if(mx_depth < depth[i])
+        {
+            mx_depth = depth[i];
+        }
+    }
+    cout<<mx_depth << endl; // diameter of a tree
+}
+
+
+//** find Lowest Common Ancestor(LCA) // onk niom ase eta O(n)
+
+//13 // n=13, vertex 12 ->(n-1)
+//1 2
+//1 3
+//1 13
+//2 5
+//3 4
+//5 6
+//5 7
+//5 8
+//8 12
+//4 9
+//4 10
+//10 11
+//
+//if x = 9 y = 4  lca hbe 4
+const int N = 1e5+10;
+
+vector<int> g[N];
+
+int par[N];
+
+void dfs(int v, int p=-1)
+{
+    par[v]=p;
+    for(int child : g[v])
+    {
+        if(child == p) continue;
+        dfs(child, v);
+    }
+}
+
+vector<int> path(int v)
+{
+    vector<int>ans;
+    while(v!=-1)
+    {
+        ans.push_back(v);
+        v = par[v];
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    for(int i=0;i<n-1;i++)
+    {
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[x].push_back(y);
+    }
+    dfs(1);
+    int x, y;
+    cin>>x>>y;
+    vector<int> path_x = path(x);
+    vector<int> path_y = path(y);
+
+    int mn_ln = min(path_x.size(), path_y.size());
+
+    int lca = -1;
+
+    for(int i=0;i<mn_ln; i++)
+    {
+        if(path_x[i]== path_y[i])lca = path_x[i];
+        else break;
+    }
+    cout<<"lowest common ancestor of "<<x<<" and "<<y<<" is : "<<lca<<endl;
+}
+
+//** Edge deletion question using dfs
+
+// delete an edge so that product between sum of weight
+   of nodes in one subtree with sum of weight of nodes in
+   other subtree is maximized;
+const int N = 1e6+7;
+int subtree_sum[N];
+
+vector<int>g[N];
+
+void dfs(int vertex, int par)
+{
+    subtree_sum[vertex] += vertex;
+
+    for(int child : g[vertex])
+    {
+        if(child==par)continue;
+        dfs(child, vertex);
+
+        subtree_sum[vertex] += subtree_sum[child];
+    }
+}
+
+int main()
+{
+    int n;;
+    cin>>n;
+    for(int i=0;i<n-1;i++)
+    {
+        int x, y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    dfs(1,0);
+    long long ans = 0;
+    for(int i=2; i<=n; i++)
+    {
+        int part1 = subtree_sum[i];
+        int part2 = subtree_sum[1]-part1;
+        ans = max(ans, part1*1LL*part2);
+    }
+    cout<<ans<<endl;
+}
+
+
+// *** BFS  
+// help to find shortest path
+
+// t c : O( V+E) V-node/vertex, E-edges
+const int N = 1e5+10;
+vector<int>g[N];
+int level[N];
+
+int vis[N];
+
+void bfs(int source)
+{
+    queue<int>q;
+    q.push(source);
+    vis[source]=1;
+    while(!q.empty())
+    {
+        int cur_v = q.front();
+        q.pop();
+        //cout<<cur_v<<" ";
+        for(int child : g[cur_v])
+        {
+            if(!vis[child])
+            {
+                q.push(child);
+                vis[child]=1;
+                level[child]=level[cur_v]+1;
+            }
+        }
+    }
+
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    for(int i=0;i<n-1;i++)
+    {
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    bfs(1);
+    for(int i=1;i<=n;i++)
+    {
+        cout<< i << ": " << level[i]<<endl;
+    }
+}
+
+// ** BFS related probles
+// bfs matrix related prblm e pair of queue nite hbe
+
+//the minimum number of moves a knight(ghora) takes to reach from one square to another square of a chess board (8 × 8)
+//Input:
+//3
+//a1 h8
+//a1 c2
+//h8 c3
+//
+//Output:
+//6
+//1
+//4
+const int N = 1e5+10;
+const int INF = 1e9+10;
+
+int vis[8][8];
+int level[8][8];
+
+int getX(string s)
+{
+    return s[0]-'a';
+}
+int getY(string s)
+{
+    return s[1]-'1';
+}
+
+bool IsValid(int x, int y)
+{
+    return (x>=0 && y>=0 && x<8 && y<8);
+}
+
+vector<pair<int,int>>movements={
+    {-1, 2}, {1, 2},
+    {-1, -2}, {1, -2},
+    {2, -1}, {2, 1},
+    {-2, -1}, {-2, 1}
+};
+
+int bfs(string source, string dest)
+{
+    int sourceX = getX(source);
+    int sourceY = getY(source);
+    int destX = getX(dest);
+    int destY = getY(dest);
+
+    queue<pair<int,int>>q;
+    q.push({sourceX,sourceY});
+
+    vis[sourceX][sourceY]=1;
+    level[sourceX][sourceY]=0;
+
+    while(!q.empty())
+    {
+        pair<int, int> v = q.front();
+        int x = v.first, y = v.second;
+        q.pop();
+
+        for(auto movement : movements)
+        {
+            int childX = movement.first + x;
+            int childY = movement.second + y;
+
+            if(!IsValid(childX, childY))continue;
+
+            if(!vis[childX][childY])
+            {
+                q.push({childX, childY});
+                level[childX][childY]=level[x][y]+1;
+                vis[childX][childY]=1;
+            }
+        }
+        if(level[destX][destY] != INF)break;
+    }
+
+    return level[destX][destY];
+
+}
+void reset()
+{
+    for(int i=0;i<8;i++)
+    {
+        for(int j=0;j<8;j++)
+        {
+            level[i][j]=INF;
+            vis[i][j]=0;
+        }
+    }
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    while(n--)
+    {
+        reset();
+        string s1,s2;
+        cin>>s1>>s2;
+        cout<<bfs(s1,s2)<<endl;
+    }
+}
+
+** BfS related problem ** 0/1 BFS 
+
+// what is the mimimum number of edges he needs to reverse in order to 
+// have at least one path from vertex 1 to N, where the vertices are numbered from 1 to N
+// input
+//7 7
+//1 2
+//3 2
+//3 4
+//7 4
+//6 2
+//5 6
+//7 5
+
+//output : 2
+
+const int N = 1e5+10;
+const int INF = 1e9+10;
+
+vector<pair<int,int>> g[N];
+vector<int>lev(N, INF);
+
+int n, m;
+
+int bfs()
+{
+    deque<int>q;
+    q.push_back(1);
+    lev[1]=0;
+    while(!q.empty())
+    {
+        int cur_v = q.front();
+        q.pop_front();
+
+        for(auto child: g[cur_v])
+        {
+            int child_v = child.first;
+
+            int wt = child.second;
+
+            if(lev[cur_v]+wt < lev[child_v])
+            {
+                lev[child_v]=lev[cur_v]+wt;
+                if(wt==1)q.push_back(child_v);
+                else q.push_front(child_v);
+            }
+        }
+
+    }
+    return lev[n]==INF ? -1 : lev[n];
+}
+
+int main()
+{
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back({y,0});
+        g[y].push_back({x,1});
+    }
+    cout<<bfs()<<endl;
+
+}
+
+//Multi Source BFS: 
+
+//input :
+//3
+//2 2
+//1 1
+//1 1
+//
+//2 2
+//1 1
+//1 2
+//
+//3 4
+//1 2 1 2
+//1 1 1 2
+//1 1 2 2
+//
+//output
+//0
+//1
+//2
+const int N = 1e3+10;
+const int INF = 1e9+10;
+
+int val[N][N];
+int vis[N][N];
+int lev[N][N];
+int n, m;
+
+vector<pair<int,int>>movements =
+{
+    {0,1},
+    {0,-1},
+    {1,0},
+    {-1,0},
+    {-1,1},
+    {1,-1},
+    {1,1},
+    {-1,-1}
+};
+bool isValid(int i, int j)
+{
+    return i>=0 && j>=0 && i<n && j<m;
+}
+
+int bfs()
+{
+    int mx = 0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            mx=max(mx,val[i][j]);
+        }
+    }
+    queue<pair<int,int>>q;
+
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(mx==val[i][j])
+            {
+                q.push({i,j});
+                lev[i][j]=0;
+                vis[i][j]=1;
+            }
+        }
+    }
+    int ans = 0;
+
+    while(!q.empty())
+    {
+        auto v = q.front();
+        int v_x = v.first;
+        int v_y = v.second;
+        q.pop();
+
+        for(auto movement : movements)
+        {
+            int child_x = movement.first + v_x;
+            int child_y = movement.second + v_y;
+            if(!isValid(child_x, child_y))continue;
+
+            if(vis[child_x][child_y])continue;
+
+            q.push({child_x, child_y});
+
+            lev[child_x][child_y]=lev[v_x][v_y]+1;
+            vis[child_x][child_y]=1;
+
+            ans = max(ans, lev[child_x][child_y]);
+        }
+    }
+
+    return ans;
+}
+
+void reset()
+{
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            vis[i][j]=0;
+            lev[i][j]=INF;
+        }
+    }
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        reset();
+        cin>>n>>m;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                cin>>val[i][j];
+            }
+        }
+
+        cout<<bfs()<<endl;
+    }
+}
+
+**/ dijkstra algorithm
+ leet code prblm slv
+
+const int N = 1e5+10;
+const int INF = 1e9+10;
+
+
+int dijkstra(int source,int n, vector<pair<int,int>>g[])
+{
+    vector<int>vis(N, 0);
+    vector<int>dist(N, INF);
+
+    set<pair<int,int>>st;
+
+    st.insert({0,source});
+
+    dist[source]=0;
+
+    while(st.size() > 0)
+    {
+        auto node = *st.begin();
+        int v = node.second;
+        int v_wt = node.first;
+        st.erase(st.begin());
+
+        if(vis[v])continue;
+
+        vis[v] = 1;
+
+
+        for(auto child : g[v])
+        {
+            int child_v = child.first;
+            int wt = child.second;
+            if(dist[v]+wt<dist[child_v])
+            {
+                dist[child_v] = dist[v]+wt;
+                st.insert({dist[child_v],child_v});
+            }
+        }
+    }
+    int ans = 0;
+    for(int i=1;i<=n;i++)
+    {
+        if(dist[i]==INF)return -1;
+        ans=max(ans, dist[i]);
+    }
+    return ans;
+}
+int networkDelayTime(vector<vector<int>>&times, int n, int k) {
+        vector<pair<int,int>>g[N];
+        for(auto vec : times)
+        {
+            g[vec[0]].push_back({vec[1],vec[2]});
+        }
+        return dijkstra(k,n,g);
+    }
+
+
+#include<bits/stdc++.h>
+using namespace std;
+// s_h_rudra88
+const int N = 1e5+10;
+const int INF = 1e9+10;
+
+
+int dijkstra(int source,int n, vector<pair<int,int>>g[])
+{
+    vector<int>vis(N, 0);
+    vector<int>dist(N, INF);
+
+    set<pair<int,int>>st;
+
+    st.insert({0,source});
+
+    dist[source]=0;
+
+    while(st.size() > 0)
+    {
+        auto node = *st.begin();
+        int v = node.second;
+        int v_wt = node.first;
+        st.erase(st.begin());
+
+        if(vis[v])continue;
+
+        vis[v] = 1;
+
+
+        for(auto child : g[v])
+        {
+            int child_v = child.first;
+            int wt = child.second;
+            if(dist[v]+wt<dist[child_v])
+            {
+                dist[child_v] = dist[v]+wt;
+                st.insert({dist[child_v],child_v});
+            }
+        }
+    }
+    int ans = 0;
+    for(int i=1;i<=n;i++)
+    {
+        if(dist[i]==INF)return -1;
+        ans=max(ans, dist[i]);
+    }
+    return ans;
+}
+int networkDelayTime(vector<vector<int>>&times, int n, int k) {
+        vector<pair<int,int>>g[N];
+        for(auto vec : times)
+        {
+            g[vec[0]].push_back({vec[1],vec[2]});
+        }
+        return dijkstra(k,n,g);
+    }
+
+
+int main()
+{
+    int n, m;
+
+    for(int i=0; i<m ;i++)
+    {
+        int x,y,wt;
+
+        cin>>x>>y>>wt;
+
+        g[x].push_back({y, wt}); // directed graph
+    }
+}
+
+** dijkstra 
+implementation from cps
+//  ( O(nlogn + e) ) n-node e-edge
+// help to find single source shortest path
+
+
+/* input output
+5 7
+1 3 3
+1 2 2
+1 4 6
+2 0 6
+2 3 7
+0 4 3
+3 4 5
+0 8 6 8 3 */
+#define fast() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define ll long long
+
+const int mx = 1e5+10;
+vector<pair<int,int>>adj[mx];
+ll dist[mx];
+const ll infll = 9e18;
+
+void dijkstra(int s, int n)
+{
+    for(int i=0;i<=n;i++)dist[i]=infll;
+    dist[s]=0;
+    priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<pair<int,int>>>pq; //eita choto theke choto sort korbe 1st element then 2nd element
+    
+	//priority_queue<pair<int, int> > pq; eita boro theke choto sort korbe 1st element then 2nd element
+
+    pq.push({0, s}); // starting node(source) e jawar cost 0
+
+    while(!pq.empty())
+    {
+        int u = pq.top().second;
+        ll curD = pq.top().first;
+
+        pq.pop();
+
+        if(dist[u]<curD)continue;
+
+        for(auto p : adj[u])
+        {
+            int v =p.first;
+            ll w = p.second;
+
+            if(curD + w < dist[v])
+            {
+                dist[v] = curD + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+}
+
+int main()
+{
+    fast();
+    int n, m;
+
+    cin>>n>>m;
+
+    for(int i=1;i<=m;i++)
+    {
+        int u,v,w;
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+    }
+
+    dijkstra(0, n);
+    for(int i=0;i<n;i++)cout<<dist[i]<<" ";
+    cout<<endl;
+
+    return 0;
+}
+
+
+
+****// floid warshal algorithm , all pair shortest path
+// -ve  weight eo kaj korbe
+// but -ve weighted cycle e kaj korbena
+
+/* input 
+6 9
+1 2 1
+1 3 5
+2 3 2
+3 5 2
+2 5 1
+2 4 2
+4 5 3
+4 6 1
+5 6 2
+output: I mane INF(jawar way nai)
+0 1 3 3 2 4
+I 0 2 2 1 3
+I I 0 I 2 4
+I I I 0 3 1
+I I I I 0 2
+I I I I I 0
+*/
+const int N = 510;
+const int INF =1e9+10;
+
+int dist[N][N];
+
+int main()
+{
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<N; j++)
+        {
+            if(i==j)dist[i][j]=0;
+            else dist[i][j]=INF;
+        }
+    }
+    int n, m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int x, y, wt;
+        cin>>x>>y>>wt;
+        dist[x][y]=wt;
+    }
+
+    for(int k=1;k<=n;k++)
+    {
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=n;j++)
+            {
+                dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j]);
+
+            }
+        }
+    }
+
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=n; j++)
+        {
+            if(dist[i][j]==INF)cout<<"I ";
+            else cout<<dist[i][j]<<" ";
+        }cout<<endl;
+    }
+}
+problem solve related to floyd warshal
+// https://codeforces.com/problemset/problem/295/B
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 510;
+const int INF  = 1e9+10;
+
+long long dist[N][N];
+
+int main(){
+    int n;
+    cin >> n;
+    for(int i = 1; i <= n; ++i){
+        for(int j = 1; j <=n; ++j){
+            cin >> dist[i][j];
+        }
+    }
+    vector<int> del_order(n);
+    for(int i = 0; i < n; ++i){
+        cin >> del_order[i];
+    }
+    reverse(del_order.begin(), del_order.end());
+    vector<long long> ans;
+    for(int k = 0; k < n; ++k){
+        int k_v = del_order[k];
+        for(int i = 1; i <= n; ++i){
+            for(int j = 1; j <= n; ++j){
+                long long new_dist = dist[i][k_v] + dist[k_v][j];
+                dist[i][j] = min(dist[i][j], new_dist);
+            }
+        }
+        long long sum = 0;
+        for(int i = 0; i <= k; ++i){
+            for(int j = 0; j <= k; ++j){
+                sum += dist[del_order[i]][del_order[j]];
+            }
+        }
+        ans.push_back(sum);
+    }
+    reverse(ans.begin(), ans.end());
+    for(auto val : ans){
+        cout << val << endl;
+    }
+}
+
+// *** disjoin set union
+
+// 3 functions // make // find // union
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5+10;
+
+int parent[N];
+int size[N];
+
+void make(int v)
+{
+    parent[v] = v;
+    size[v] = 1;
+}
+int find(int v)
+{
+    if(v== parent[v])return v;
+
+    // path compression
+    return parent[v] = find(parent[v]);
+}
+void Union(int a, int b)
+{
+    a = find(a);
+    b = find(b);
+
+    if(a!=b)
+    {
+        // union by size
+        if(size[a]<size[b])
+        {
+            swap(a,b);
+        }
+        parent[b] = a;
+        size[a] += size[b];
+    }
+}
+
+int main()
+{
+    int n,k;
+    cin>>n>>k;
+    for(int i=1;i<=n;i++)make(i);
+
+    while(k--)
+    {
+        int u, v;
+        cin>>u>>v;
+        Union(u, v);
+    }
+
+    int connected_ct = 0;
+    for(int i=1;i<=n;i++)
+    {
+        if(parent[i] == i)connected_ct++;  // connected component
+    }
+    cout<<connected_ct<<endl;
+}
+
+// hackerrank dsu related problem
+https://www.hackerearth.com/practice/data-structures/disjoint-data-strutures/basics-of-disjoint-data-structures/practice-problems/algorithm/city-and-campers/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5+10;
+
+int parent[N];
+int size1[N];
+multiset<int>sizes;
+
+void make(int v)
+{
+    parent[v] = v;
+    size1[v] = 1;
+    sizes.insert(1);
+}
+int find1(int v)
+{
+    if(v== parent[v])return v;
+
+    // path compression
+    return parent[v] = find1(parent[v]);
+}
+
+void merge1(int a, int b)
+{
+    sizes.erase(sizes.find(size1[a]));
+    sizes.erase(sizes.find(size1[b]));
+
+
+    sizes.insert(size1[a]+size1[b]);
+}
+
+void Union(int a, int b)
+{
+    a = find1(a);
+    b = find1(b);
+
+    if(a!=b)
+    {
+        // union by size
+        if(size1[a]<size1[b])
+        {
+            swap(a,b);
+        }
+        parent[b] = a;
+        merge1(a,b);
+        size1[a] += size1[b];
+    }
+}
+
+int main()
+{
+    int n,k;
+    cin>>n>>k;
+    for(int i=1;i<=n;i++)make(i);
+
+    while(k--)
+    {
+        int u, v;
+        cin>>u>>v;
+        Union(u, v);
+        if(sizes.size()==1){
+            cout<<0<<endl;
+        }else {
+                int mn = *(sizes.begin());
+                int mx = *(--sizes.end());
+                cout<<mx-mn<<endl;
+        }
+    }
+
+
+    return 0;
+}
+
+
+***// Kruskal algorithm -> minimum spanning tree// O(n*log(n))
+// wt onujayi sort korbe dia minimum wt dia tree hbe , cycle not allow
+// using dsu
+/*
+input :
+6 9
+5 4 9
+1 4 1
+5 1 4
+4 3 5
+4 2 3
+1 2 2
+3 2 3
+3 6 8
+2 6 7
+
+output
+1 4
+1 2
+3 2
+5 1
+2 6
+17
+
+*/
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5+10;
+
+int parent[N];
+int size1[N];
+
+void make(int v)
+{
+    parent[v] = v;
+    size1[v] = 1;
+}
+int find1(int v)
+{
+    if(v== parent[v])return v;
+
+    // path compression
+    return parent[v] = find1(parent[v]);
+}
+void Union(int a, int b)
+{
+    a = find1(a);
+    b = find1(b);
+
+    if(a!=b)
+    {
+        // union by size
+        if(size1[a]<size1[b])
+        {
+            swap(a,b);
+        }
+        parent[b] = a;
+        size1[a] += size1[b];
+    }
+}
+
+int main()
+{
+    int n,k;
+    cin>>n>>k;
+    for(int i=1;i<=n;i++)make(i);
+
+    vector<pair<int,pair<int,int>>>edges; // sort 1st value onujayi hbe
+    for(int i=0;i<k;i++)
+    {
+        int u, v, wt;
+        cin>>u>>v>>wt;
+        edges.push_back({wt, {u, v}});
+    }
+
+    sort(edges.begin(),edges.end());
+    int total_cost = 0;
+    for(auto &edge : edges)
+    {
+        int wt = edge.first;
+        int u = edge.second.first;
+        int v = edge.second.second;
+
+        if(find1(u)==find1(v))continue; // parent same hoile connected component
+
+        Union(u, v);
+        total_cost+=wt;
+        cout<<u<<" "<<v<<endl;
+    }cout<<total_cost<<endl;
+
+    return 0;
+}
+
+
+
+######### Dp ##########
+
+// C++ program for Fibonacci Series
+#include<bits/stdc++.h>
+using namespace std;
+
+class GFG{
+	
+public:
+int fib(int n)
+{
+	int f[n + 2];
+	int i;
+	f[0] = 0;
+	f[1] = 1;
+
+	for(i = 2; i <= n; i++)
+	{
+	f[i] = f[i - 1] + f[i - 2];
+	}
+	return f[n];
+	}
+};
+
+int main ()
+{
+	GFG g;
+	int n = 9;
+	
+	cout << g.fib(n);
+	return 0;
+}
+
+// in dp , at first write brute forse recurtion then customise it
+
+// frog 1&2 : Atcoder 1D dp
+
+#include<bits/stdc++.h>
+using namespace std;
+const int N =1e5 + 10;
+
+int h[N];
+int dp[N];
+
+int func(int i)
+{
+    if(i==0)return 0;
+    if(dp[i] != -1 )return dp[i];
+
+    int cost = INT_MAX;
+
+    cost = min (cost, func(i-1)+abs(h[i]-h[i-1]));
+    if(i>1)cost = min (cost, func(i-2)+abs(h[i]-h[i-2]));
+
+    return dp[i]=cost;
+}
+int main()
+{
+    memset(dp,-1,sizeof(dp));
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>h[i];
+    }
+    cout<<func(n-1);
+}
+
+***// Atcoder 1d dp question : frog  2
+int func(int i)
+{
+    if(i==0)return 0;
+    if(dp[i] != -1 )return dp[i];
+
+    int cost = INT_MAX;
+
+    for(int j=1;j<=k;j++)if(i-j>=0)cost = min (cost, func(i-j)+abs(h[i]-h[i-j]));
+
+    return dp[i]=cost;
+}
+int main()
+{
+    memset(dp,-1,sizeof(dp));
+    int n;
+    cin>>n>>k;
+    for(int i=0;i<n;i++)
+    {
+        cin>>h[i];
+    }
+    cout<<func(n-1);
+}
+
+*****// longest increasing subsequence using dp // O(n^2)
+const int N = 25e2+10;
+vector<int >a(N);
+int dp[N];
+
+int lis(int i)
+{
+    if(dp[i]!=-1)return dp[i];
+
+    int ans = 1;
+    for(int j=0;j<i;j++)
+    {
+        if(a[i]>a[j])
+        {
+            ans=max(ans, lis(j)+1);
+        }
+    }
+
+    return dp[i]=ans;
+}
+int main()
+{
+    memset(dp, -1, sizeof(dp));
+    int n;
+    cin >> n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    int ans = 0;
+    for(int i=0; i<n;i++)
+    {
+        ans = max(ans, lis(i));
+    }
+    cout<<ans<<endl;
+    return 0;
+}
+
+
+//****** coin change 1  ********
+
+int dp[10010];
+int func(int amount, vector<int>&coins)
+{
+    if(amount ==0)return 0;
+    if(dp[amount]!=-1)return dp[amount];
+
+    int ans = INT_MAX;
+    for(int coin : coins)
+    {
+        if(amount - coin >= 0)
+            ans = min (ans+0LL, func(amount-coin,coins)+1LL); // LL for overflow, LL use korle prblm hbena
+    }
+    return dp[amount]=ans;
+}
+int coinChange(vector<int>&coins, int amount)
+{
+    memset(dp, -1, sizeof(dp));
+    int ans = func(amount, coins);
+    return ans == INT_MAX ? -1 : ans;
+}
+int main()
+{
+    vector<int > coins = {1,2,5};
+    cout<<coinChange(coins, 11);  // output 3 : 5+5+1
+    return 0;
+}
+
+// ****  coin change 2 ******
+
+//amount = 5, coins = [1,2,5]
+//Output: 4
+//Explanation: there are four ways to make up the amount:
+//5=5
+//5=2+2+1
+//5=2+1+1+1
+//5=1+1+1+1+1
+
+int dp[1000][10010];
+int func1(int index,int amount, vector<int>&coins)
+{
+    if(amount ==0)return 1;
+    if(index < 0)return 0;
+    if(dp[index][amount]!=-1)return dp[index][amount];
+
+    int ways = 0;
+    for(int coin_amount = 0 ; coin_amount <= amount; coin_amount+=coins[index])
+    {
+        ways += func1(index-1,amount-coin_amount,coins);
+    }
+    return dp[index][amount]=ways;
+}
+int coinChange(vector<int>&coins, int amount)
+{
+    memset(dp, -1, sizeof(dp));
+    return func1(coins.size()-1, amount, coins);
+}
+int main()
+{
+    vector<int > coins = {1,2,5};
+
+
+
+
+
+
+
+    cout<<coinChange(coins, 5);
+    return 0;
+}
+
+**** 0 1 knapsack - 
+atcoder problem
+
+#include<bits/stdc++.h>
+using namespace std;
+#define  ll  long long int
+const int N = 2e5+10;
+
+int wt[105], val[105];
+
+ll dp[100][100005];
+ll func(int ind, int wt_left)
+{
+    if(wt_left == 0)return 0;
+    if(ind<0)return 0;
+    if(dp[ind][wt_left] != -1)return dp[ind][wt_left];
+
+    ll ans = func(ind-1, wt_left);// item isn't chosen
+    if(wt_left - wt[ind] >= 0)
+    {
+        ans = max(ans, func(ind-1, wt_left - wt[ind]) + val[ind]);
+    }
+    return dp[ind][wt_left] = ans;
+}
+int main()
+{
+    memset(dp,-1,sizeof(dp));
+    int n, w;
+    cin>>n>>w;
+    for(int i=0;i<n;i++)
+    {
+        cin>>wt[i]>>val[i];
+    }cout<<func(n-1,w);
+}
+
+Knapsack 2
+
+#include<bits/stdc++.h>
+using namespace std;
+#define  ll  long long int
+const int N = 2e5+10;
+
+int wt[105], val[105];
+
+ll dp[100][100005];
+ll func(int ind, int value_left)
+{
+    if(value_left == 0)return 0;
+    if(ind < 0) return 1e15;
+    if(dp[ind][value_left]!=-1)return dp[ind][value_left];
+    ll  ans = func(ind -1, value_left);  // don't choose
+    if(value_left - val[ind]>=0)
+        ans = min(ans,func(ind - 1, value_left - val[ind]) + wt[ind]);
+
+    return dp[ind][value_left]=ans;
+}
+int main()
+{
+    memset(dp,-1,sizeof(dp));
+    int n, w;
+    cin>>n>>w;
+    for(int i=0;i<n;i++)
+    {
+        cin>>wt[i]>>val[i];
+    }
+    ll max_value = 1e5; // contrains n=100, v max 1^3 hoite pare tai max value 1^5
+
+    for(int i=max_value; i>=0 ; --i)
+    {
+        if(func(n-1, i) <= w)
+        {
+            cout<<i<<endl;
+            break;
+        }
+    }
+    return 0;
+}
+
+** Rod Cutting
+
+gfg
+Input:
+N = 8
+Price[] = {1, 5, 8, 9, 10, 17, 17, 20}
+
+Output:
+22
+
+Explanation:
+The maximum obtainable value is 22 by 
+cutting in two pieces of lengths 2 and 
+6, i.e., 5+17=22.
+
+class Solution{
+    int dp[1005];
+  public:
+    int func(int len, vector<int>&prices)
+        {
+            if(len==0)return 0;
+            if(dp[len]!=-1)return dp[len];
+            
+            int ans = 0;
+            for(int len_to_cut = 1; len_to_cut <= prices.size(); len_to_cut++)
+            {
+                if(len-len_to_cut>=0)
+                {
+                    ans = max(ans, func(len-len_to_cut, prices)+prices[len_to_cut-1]);
+                }
+            }
+            return dp[len]=ans;
+        }
+    int cutRod(int price[],int n)
+        {
+            memset(dp,-1,sizeof(dp));
+            vector<int> prices(price, price+n);
+            return func(n, prices);
+        }
+};
+
+#include<bits/stdc++.h>
+using namespace std;
+int dp[1005];
+int func(int len, vector<int>prices)
+{
+    if(len==0)return 0;
+    if(dp[len]!=-1)return dp[len];
+
+    int ans = 0;
+    for(int len_to_cut = 1; len_to_cut <= prices.size(); len_to_cut++)
+    {
+        if(len-len_to_cut>=0)
+        {
+            ans = max(ans, func(len-len_to_cut,prices)+prices[len_to_cut-1]);
+        }
+    }
+    return dp[len]=ans;
+}
+int main()
+{
+    memset(dp,-1,sizeof(dp));
+    int n,a,i;
+    vector<int>v;
+    cin>>n;
+    for(i=0;i<n;i++)
+    {
+        cin>>a;
+        v.push_back(a);
+    }
+    cout<<func(n, v)<<endl;
+}
+
+*** Partition Equal Subset Sum
+
+leetcode problem
+Given an integer array nums, return true if you can partition the array into
+two subsets such that the sum of the elements in both subsets is equal or false otherwise.
+Input: nums = [1,5,11,5]
+Output: true
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
+solution: 
+class Solution {
+public:
+int dp[205][20005];
+    bool func(int i, int sum, vector<int>&nums)
+{
+    if(sum==0)return true;
+    if(i<0)return false;
+    if(dp[i][sum]!=-1)return dp[i][sum];
+    bool is_possible = func(i-1, sum, nums);
+    if(sum-nums[i]>=0)is_possible |= func(i-1, sum - nums[i],nums);
+    
+    return dp[i][sum]=is_possible;
+}
+bool canPartition(vector<int>& nums) {
+    memset(dp,-1,sizeof(dp));
+      int sum = accumulate(nums.begin(), nums.end(),0);
+      if(sum%2)return false;
+      
+      sum=sum/2;
+      return func(nums.size()-1,sum,nums);
+    }
+};
+
+*** // Longest common subsequence
+
+Input: text1 = "abcde", text2 = "ace" 
+Output: 3  
+Explanation: The longest common subsequence is "ace" and its length is 3.
+#include<bits/stdc++.h>
+using namespace std;
+int dp[1005][1005];
+int lcs(int i, int j, string &s1, string &s2)
+{
+    if(i<0 || j<0)return 0;
+    if(dp[i][j]!=-1)return dp[i][j];
+
+    int ans = lcs(i-1,j,s1,s2);
+    ans = max(ans,lcs(i,j-1,s1,s2));
+    ans = max(ans,lcs(i-1,j-1,s1,s2)+(s1[i]==s2[j]));
+
+    return dp[i][j]=ans;
+}
+
+
+int main()
+{
+    memset(dp,-1,sizeof(dp));
+    string s1,s2;
+    cin>>s1>>s2;
+    cout<<lcs(s1.size()-1,s2.size()-1,s1,s2)<<endl;
+    return 0;
+}
+
