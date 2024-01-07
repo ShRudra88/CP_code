@@ -255,7 +255,7 @@ int main()
 using namespace std;
 const int N = 1e5+10;
 int a[N];
-
+// best, avg, worst Case complexity O(n*logn) // sort function in stl also O(n*logn)
 void merge_(int l, int r, int mid)
 {
     int l_sz = mid-l+1;
@@ -370,6 +370,15 @@ int main()
 
 **** UPPER BOUND & LOWER BOUND IN STL
 
+upper bound return first element which is > value. If not, return end().
+lower bound return first element which is ≥ value. If not, return end().
+
+
+when the vector is sorted reversely
+lower_bound return the location of the first element <= value
+upper_bound return the location of the first element < value
+
+
    cin>>n;
     vector<ll>v;
     for(i=0;i<n;i++)
@@ -406,6 +415,32 @@ int main()
     return 0;
 }
 
+#include <algorithm> // for lower_bound, upper_bound and sort
+#include <iostream>
+#include <vector> // for vector
+ 
+using namespace std;
+ 
+int main()
+{
+    int gfg[] = { 5, 5, 5, 6, 6, 6, 7, 7 };
+ 
+    vector<int> v(gfg, gfg + 8); // 5 5 5 6 6 6 7 7
+ 
+    vector<int>::iterator lower, upper;
+    lower = lower_bound(v.begin(), v.end(), 6);
+    upper = upper_bound(v.begin(), v.end(), 6);
+ 
+    cout << "lower_bound for 6 at index "
+         << (lower - v.begin()) << '\n';
+    cout << "upper_bound for 6 at index "
+         << (upper - v.begin()) << '\n';
+ 
+    return 0;
+}
+Output
+lower_bound for 6 at index 3
+upper_bound for 6 at index 6
 
 **** ARRAY OF VECTOR ******
 
@@ -653,6 +688,8 @@ int main()
 }
 
 // ** BALANCE BRACKET STRING CHEQUE **
+unordered_map <char, ll> symbols = {{'(',-1},{'{',-2},{'[',-3},{')',1},{'}',2},{']',3}};
+
 
 string isBalanced(string s)
 {
@@ -1079,6 +1116,9 @@ int main()
     cout<<ct << " " << sum <<endl;
 }
 
+//if the prime factorization of a number N is p1e1,p2e2..pkek, where pi are distinct prime numbers,
+// then the number of divisors is: d(n)=(e1+1)*(e2+1)..(ek+1)
+
 // ** PRIME FACTORIZATION **** tc : O(n)
 int main()
 {
@@ -1146,6 +1186,25 @@ int main()
         else cout<<"Not prime"<<endl;
     }
 }
+
+    *** SIEVE
+
+#define m 1000010
+long long int primes[m], cnt, siv[m];
+
+void sieve()
+{
+    long long int i, j;
+    for (i=3; i<m; i+=2)
+        if(!siv[i])
+            for (j=i*i; j<m; j+=i+i)
+                siv[j]=1;
+    primes[cnt++]=2;
+    for (i=3; i<m; i+=2)
+        if(!siv[i]) primes[cnt++]=i;
+    return;
+}
+
 
 ***// highest prime && lowest prime for all  ***
 ***// prime factors in tc : O(log(n))
