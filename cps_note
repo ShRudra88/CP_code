@@ -1,0 +1,1917 @@
+
+
+***[L2]Class - 1 ( Introduction to graph theory )
+ Discussed topics :
+1) Introduction to graph theory
+2) Some example problems
+3) What is a graph?
+4) directed & undirected graph
+5) Weighted & unweighted graph
+6) Path & Cycle in a graph
+7) Tree
+8) What is a Binary tree?
+9) Child, parent, siblings and subtree in a tree
+10) Graph representation using Adjacency matrix.
+** ADJACENCY LIST GRAPH REPRESENTATION
+ Unwaited graph
+const int mx = 1e5+10;
+
+vector<int>adj[mx];
+
+int main()
+{
+    int n, m;
+    cin>>n>>m;
+    for(int i=1;i<=m;i++)
+    {
+        int u, v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    for(int i=1;i<=n;i++)
+    {
+        cout<< "Adjacent list of "<<i<<": ";
+        for(auto u: adj[i])cout<<u<<" ";
+        cout<<endl;
+    }
+}
+
+Waited graph
+
+const int mx = 1e5+10;
+
+vector<pair<int,int>>adj[mx];
+
+int main()
+{
+    int n, m;
+    cin>>n>>m;
+    for(int i=1;i<=m;i++)
+    {
+        int u, v,w;
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+    }
+
+    for(int i=1;i<=n;i++)
+    {
+        cout<< "Adjacent list of "<<i<<": ";
+        for(auto u: adj[i])cout<<"Node : "<<u.first<<" and "<<"cost :"<<u.second<<" ";
+        cout<<endl;
+    }
+}
+
+
+
+***[L2]Class - 2 ( Adjacent matrix , adjacent list )
+
+Discussed topics :
+1) Adjacent matrix and implementation
+2) Adjacent matrix memory and multi graph problem
+3) Adjacent list and implementation.
+4) Solving  memory and multi graph problem of adjacent matrix
+5) Adjacent list for weighted graph
+6) Brief discussion of vector, pair and vector of pairs.
+
+Codes:
+
+1) Take input adjacency matrix :
+https://paste.ubuntu.com/p/5CJjJXqx9H/
+
+2) Take input 2D grids :
+https://paste.ubuntu.com/p/6yMbN92JDy/
+
+3) Take input adjacency list (unweighted ) :
+https://paste.ubuntu.com/p/dkXrGJB4fR/
+
+4) Take input adjacency list ( weighted ) :
+https://paste.ubuntu.com/p/KVBKJPGsR4/
+
+
+
+References :
+1) http://www.shafaetsplanet.com/?p=184
+2) http://www.shafaetsplanet.com/?p=211
+
+
+
+
+***[L2]Class - 3 ( Graph Traversal using depth fast search )
+
+Discussed topics :
+1) Graph traversal using depth first search
+2) What is connected component in a graph
+
+Codes:
+
+1) Depth first search (Dfs)
+https://paste.ubuntu.com/p/4RWT5Nsvz9/
+
+const int mx = 1e5+123;
+bool vis[mx];
+vector<int> adj[mx];
+
+void dfs ( int u )
+{
+    vis[u] =  1;
+
+    for ( auto v : adj[u] ) {
+        if ( vis[v] == 0 ) {
+            dfs ( v );
+        }
+    }
+
+    return;
+}
+
+int main()
+{
+    optimize();
+
+
+    int n, m;
+    cin >> n >> m;
+    for ( int i = 1; i <= m; i++ ) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back ( v );
+        adj[v].push_back ( u );
+    }
+
+    dfs ( 1 );
+
+
+    return 0;
+}
+
+Some similar online judge problems to think : 
+1) Connected Components in a Graph ( Hacker earth ) 
+Link : https://www.hackerearth.com/problem/a...
+
+from luv code
+// ** store connected components using dfs
+
+const int N = 1e5+10;
+vector<int>g[N];
+bool vis[N];
+vector<vector<int>>cc;
+vector<int>current_cc;
+
+void dfs(int vertex)
+{
+    //cout<<vertex<<endl;
+    vis[vertex] = true;
+    current_cc.push_back(vertex);
+    for(int child : g[vertex])
+    {
+        if(vis[child])continue;
+        dfs(child);
+    }
+}
+
+int main()
+{
+    int n, m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int v1,v2;
+        cin>>v1>>v2;
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+    }
+    int cnt = 0;
+    for(int i=1; i<=n; i++)
+    {
+        if(vis[i])continue;
+        current_cc.clear();
+        dfs(i);
+        cc.push_back(current_cc);
+        cnt++;
+    }
+    cout<<cc.size()<<endl; // number of connected components
+    for(auto u : cc)
+    {
+        for(auto vertex : u) // vertex in each component
+        {
+            cout<<vertex<<" ";
+        }cout<<endl;
+    }cout<<endl;
+    return 0;
+}
+
+
+2) B. DZY Loves Chemistry ( Codeforces ) 
+ https://codeforces.com/problemset/pro...
+#include<bits/stdc++.h>
+using namespace std;
+ll vis[10000];
+vector<ll> g[51];
+void dfs(ll vertex)
+{
+    vis[vertex]=1;
+    for(auto u : g[vertex])
+    {
+        if(vis[u])continue;
+        dfs(u);
+    }
+}
+void solve()
+{
+    ll n,num,i,j,a,b,c,d,e,x,y,l,r;
+    ll ans=0,k=0,sum=0,cnt=0,cnt1=0,maxi=INT_MIN,mini=INT_MAX;
+    ll unknown=0,known=0;
+    string s,s1;
+    cin>>n>>a;
+    while(a--)
+    {
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+
+    }
+    for(i=1;i<=n;i++)
+    {
+        if(vis[i])continue;
+        dfs(i);
+        cnt++;
+    }
+
+    n=n-cnt;
+    ans=pow(2,n);
+
+    cout<<ans<<endl;
+    return;
+}
+int main()
+{
+    fast();
+    ll test;
+    solve();
+
+    return 0;
+}
+
+3) 459 - Graph Connectivity ( Uva ) 
+solve :
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 30;
+
+vector<int> g[N];
+int vis[N];
+
+void dfs(int vertex)
+{
+    vis[vertex]=true;
+
+    for(auto child : g[vertex])
+    {
+        if(vis[child])continue;
+        dfs(child);
+    }
+}
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        char ch;
+        cin>>ch;
+        cin.ignore();
+        int num = ch -'A'+1;
+        string edge;
+        while(getline(cin, edge))
+        {
+            if(edge.empty())break;
+            int x = edge[0]-'A'+1;
+            int y = edge[1]-'A'+1;
+            g[x].push_back(y);
+            g[y].push_back(x);
+        }
+
+        int ans = 0;
+
+        for(int i=1;i<=num;i++)
+        {
+            if(vis[i])continue;
+            ans++;
+            dfs(i);
+        }
+
+        cout<<ans<<endl;
+        if(t)cout<<endl;
+
+        for(int i=0;i<=num;i++)g[i].clear();
+
+        memset(vis, false, sizeof(vis));
+    }
+
+    return 0;
+}
+
+***[L2]Class - 4 ( Finding connected components of graph and bi-coloring a bipartite graph )
+
+Discussed topics :
+1) Counting number components in a graph
+2) Getting maximum size of connected component in a graph
+3) Bicoloring a bipartite graph using dfs
+4) Connected Components in a Graph ( Hacker earth ) Using number of connected components in a graph. 
+Link : https://www.hackerearth.com/problem/a...
+
+
+6) 1009 - Back to Underworld ( Lightoj ) Using Bicoloring a bipartite graph.
+Link :  http://lightoj.com/volume_showproblem...
+
+Codes :
+1) Connected Components in a Graph ( Hacker earth ) 
+https://paste.ubuntu.com/p/jZpn9bxqky/
+
+ 
+const int mx = 30;
+vi adj[mx];
+bool vis[mx];
+ 
+void dfs ( int u )
+{
+    vis[u] = 1;
+    for ( auto v : adj[u] ) {
+        if ( !vis[v] ) dfs ( v );
+    }
+}
+ 
+ 
+int main()
+{
+    optimize();
+ 
+    int n, m;
+    cin >> n >> m;
+ 
+    for ( int i = 1; i <= m; i++ ) {
+        int u, v;
+        cin >> u >> v;
+ 
+        adj[u].PB ( v );
+        adj[v].PB ( u );
+    }
+ 
+    int cnt = 0;
+    for ( int i = 1; i <= n; i++ ) {
+        if ( !vis[i] ) {
+            dfs ( i );
+            cnt++;
+        }
+    }
+ 
+    cout << cnt << endl;
+ 
+    return 0;
+}
+
+// max number of nodes in a connected component
+const int N = 1e5+10;
+vector<int>g[N];
+int vis[N];
+int cnt;
+void dfs(int vertex)
+{
+    vis[vertex]=1;
+    cnt++;
+    for(auto u : g[vertex])
+    {
+        if(vis[u])continue;
+        dfs(u);
+    }
+}
+int main()
+{
+    int a,b;
+    cin>>a>>b;
+    while(b--)
+    {
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+ 
+    int ans=0;
+    for(int i=1;i<=a;i++)
+    {
+        if(vis[i]){
+            cnt=0;
+        }
+        dfs(i);
+        ans=max(ans, cnt);
+    }cout<<ans<<endl;
+}
+
+1009 - Back to Underworld ( Lightoj ) 
+https://paste.ubuntu.com/p/MTg8hM6s8S/
+
+const int mx = 2e4+123;
+bool vis[mx];
+vi adj[mx];
+bool isNode[mx];
+int cnt, cnt1;
+
+void dfs ( int u, int col )
+{
+    vis[u] = 1;
+    if ( col == 1 ) cnt1++;
+    cnt++;
+
+    int tmp;
+    if ( col == 1 ) tmp = 2;
+    else tmp = 1;
+
+    for ( auto v : adj[u] ) {
+        if (  vis[v] == 0 ) {
+            dfs ( v, tmp );
+        }
+    }
+}
+int main()
+{
+    optimize();
+
+    int T;
+    cin >> T;
+    for ( int tc = 1; tc <= T; tc++ ) {
+        for ( int i = 0; i < mx; i++ ) {
+            adj[i].clear();
+            isNode[i] = 0;
+            vis[i] = 0;
+        }
+
+        int m;
+        cin >> m;
+        for ( int i = 1; i <= m; i++ ) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].PB ( v );
+            adj[v].PB ( u );
+
+            isNode[u] = 1;
+            isNode[v] = 1;
+        }
+
+        int ans = 0;
+        for ( int i = 1; i <= 2e4; i++ ) {
+            if ( isNode[i] == 1 && vis[i] == 0 ) {
+                cnt = 0, cnt1 = 0;
+                dfs ( i, 1 );
+                ans += max ( cnt1, cnt - cnt1 );
+            }
+        }
+
+        cout << "Case " << tc << ": " << ans << endl;
+    }
+
+
+    return 0;
+}
+
+
+***[L2]Class - 5 ( breadth first search )[bangla]
+//weighted graph er jnne bfs kaj kore na - dijkstr use korte hoi weighted graph er khetre
+
+Discussed topics :
+1) Lightoj : 1012 - Guilty Prince
+2) breadth first search
+3) Single source shortest path.
+4) Hacker earth :  Monk and the Islands
+
+
+Class Tasks :
+1) Lightoj : 1012 - Guilty Prince
+https://lightoj.com/problem/guilty-prince
+
+#include<bits/stdc++.h>
+using namespace std;
+#define  ll  long long int
+// s_h_rudra88
+const int N = 25;
+char aa[N][N];
+int vis[N][N];
+
+int dx[]={+1,-1,0,0};
+int dy[]={0,0,-1,+1};
+int a,b;
+int cnt=0;
+//bool isPossible(int x, int y)
+//{
+//    return (x>=1 && x<=a && y>=1 && y<=b);
+//}
+void dfs(int x, int y)
+{
+    vis[x][y]=1;
+    cnt++;
+    //cout<<x<<" "<<y<<endl;
+    for(int i=0;i<4;i++)
+    {
+        int x1 = x+dx[i];
+        int y1 = y+dy[i];
+
+        if(x1>=1 && x1<=a && y1>=1 && y1<=b && !vis[x1][y1] && aa[x1][y1]!='#')
+            dfs(x1,y1);
+    }
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    ll test, n, sum, num, i, ans, j, c=1,x,y;
+    cin>>test;
+    while(test--)
+    {
+        cin>>b>>a;
+        cnt=0;
+        for(i=0;i<N;i++)
+        {
+            for(j=0;j<N;j++)vis[i][j]=0;
+        }
+        for(i=1;i<=a;i++)
+        {
+            for(j=1;j<=b;j++)
+            {
+                cin>>aa[i][j];
+                if(aa[i][j]=='@'){
+                    x=i;
+                    y=j;
+                }
+
+            }
+        }
+        //cout<<x<<" "<<y<<endl;
+        //cout<<endl;
+        dfs(x,y);
+
+
+	    cout << "Case " << c << ": " <<cnt<< endl;
+        c++;
+    }
+    return 0;
+}
+
+
+
+2)  Hacker earth :  Monk and the Islands
+Link : https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/practice-problems/algorithm/monk-and-the-islands/description/
+
+solution of 2 and implement of bfs
+input :
+2
+3 2
+1 2
+2 3
+4 4
+1 2
+2 3
+3 4
+4 2
+output : 
+2
+2
+
+#include<bits/stdc++.h>
+using namespace std;
+
+const int mx = 1e4 + 10;
+
+vector<int> adj[mx];
+int lev[mx];
+
+void bfs(int s)
+{
+    memset(lev, -1, sizeof(lev));
+
+    lev[s]=0;
+    queue<int>q;
+    q.push(s);
+
+    while(!q.empty())
+    {
+        int u = q.front();
+        q.pop();
+
+        for(auto v :adj[u])
+        {
+            if(lev[v]==-1)
+            {
+                lev[v]=lev[u]+1;
+                q.push(v);
+            }
+        }
+    }
+}
+int main()
+{
+    int test;
+    cin>>test;
+    while(test--)
+    {
+        for(int i=0;i<mx;i++)adj[i].clear();
+        int n,m;
+        cin>>n>>m;
+        for(int i=0;i<m;i++)
+        {
+            int u,v;
+            cin>>u>>v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        bfs(1);
+        cout<<lev[n]<<endl;
+    }
+}
+
+More problems for practice :
+https://codeforces.com/problemset?order=BY_SOLVED_DESC&tags=dfs+and+similar
+(kisu practice kora hoise aro korle valo hbe)
+
+
+****[L2]Class - 6(Shortest path using BFS(unweighted),bipartite graph,level calculation,etc)[bangla]
+
+Discussed topics :
+1) Printing shortest path using bfs ( Unweighted graph )
+2) checking is a graph is bicolorable or not
+3) Traversing and calculation levels of a tree using dfs
+4) Multiple source bfs.
+5) uva-10004
+6) uva-762
+7) Light Oj - 1175
+
+Codes :
+1) Printing shortest path using bfs
+Link : https://paste.ubuntu.com/p/RXfPD3m49F/
+const int mx = 1e5+123;
+vector<int> adj[mx];
+int lev[mx];
+int par[mx];
+
+void bfs ( int s )
+{
+    memset(lev, -1, sizeof(lev));
+    queue<int> q;
+    q.push( s );
+    lev[s]= 0;
+
+    while ( !q.empty() ) {
+        int u = q.front();
+        q.pop();
+
+        for ( auto v : adj[u] ) {
+            if ( lev[v] == -1 ) {
+                lev[v] = lev[u] + 1;
+                par[v] = u;
+                q.push( v );
+            }
+        }
+    }
+}
+
+
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+
+    for ( int i = 1; i <= m; i++ ) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back ( v );
+        adj[v].push_back ( u );
+    }
+
+    int s = 1, t = 6;
+    bfs (s);
+
+    if ( lev[s] == -1 ) {
+        cout << "No route\n";
+        return 0;
+    }
+
+    vector<int> path;
+    par[s] = -1;
+
+    while ( t != -1 ) {
+        path.push_back ( t );
+        t = par[t];
+    }
+
+    reverse( path.begin(), path.end() );
+
+    for ( auto u : path ) cout << u << " ";
+    cout << endl;
+
+    return 0;
+}
+
+
+2)  uva-10004
+Link : https://paste.ubuntu.com/p/QhNrbyHQc5/
+// ** is the graph is bipartite using bfs
+
+#define fast() ios :: sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+const int N = 212;
+
+vector<int>adj[N];
+
+int colour[N];
+
+bool isBipartite(int s)
+{
+    memset(colour,-1,sizeof(colour));
+
+    colour[s]=1;
+    queue<int>q;
+    q.push(s);
+
+    while(!q.empty())
+    {
+        int u = q.front();
+        q.pop();
+
+        for(auto v : adj[u])
+        {
+            if(colour[v]==-1)
+            {
+                if(colour[u]==1)colour[v]=2;
+                else colour[v]=1;
+                q.push(v);
+            }
+            else if(colour[v]==colour[u])return 0;
+        }
+    }
+
+    return 1;
+}
+int main()
+{
+    fast();
+    int n,m;
+    cin>>n>>m;
+
+    for(int i=0; i<=n; i++)adj[i].clear();
+
+    for(int i=0; i<m; i++)
+    {
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    if(isBipartite(0))cout<<"The graph is bi partite\n";
+    else cout<<"The graph is not bi partitie\n";
+
+    return 0;
+}
+
+3) uva-762
+Link : https://paste.ubuntu.com/p/3f7Xj3Jtp7/
+path/ route finding
+
+map<string, vector<string>> adj;
+map<string, string> par;
+map<string, int> lev;
+
+void bfs ( string s )
+{
+    lev.clear();
+
+    queue<string> q;
+    q.push( s );
+    lev[s]= 1;
+
+    while ( !q.empty() ) {
+        string u = q.front();
+        q.pop();
+
+        for ( auto v : adj[u] ) {
+            if ( lev[v] == 0 ) {
+                lev[v] = lev[u] + 1;
+                par[v] = u;
+                q.push( v );
+            }
+        }
+    }
+}
+
+
+int main()
+{
+    optimize();
+
+    int n;
+    bool ok = 0;
+
+    while ( cin >> n ) {
+        if ( ok ) cout << endl;
+        ok = 1;
+
+        adj.clear();
+        par.clear();
+
+        for ( int i = 1; i <= n; i++ ) {
+            string u, v;
+            cin >> u >> v;
+            adj[u].PB ( v );
+            adj[v].PB ( u );
+        }
+
+        string s, t;
+        cin >> s >> t;
+
+        bfs ( s );
+
+        if ( lev[t] == 0 ) {
+            cout << "No route\n";
+            continue;
+        }
+
+        vector<pair<string, string>> path;
+
+        while ( !par[t].empty() ) {
+            path.PB ( { par[t], t } );
+            t = par[t];
+        }
+
+        reverse( path.begin(), path.end() );
+
+        for ( auto u : path ) cout << u.first << " " << u.second << endl;
+
+    }
+
+    return 0;
+}
+
+4)  Traversing and calculation levels of a tree using dfs
+Link : https://paste.ubuntu.com/p/2NWyfT9rnj/
+
+const int mx = 1e5+123;
+int level[mx];
+int par[mx];
+int sz[mx];
+vector<int> adj[mx];
+
+void dfs ( int u, int p, int lev )
+{
+    sz[u] = 1;
+    level[u] = lev;
+    par[u] = p;
+
+    for ( auto v : adj[u] ) {
+        if ( v != p ) {
+            dfs ( v, u, lev+1 );
+            sz[u] += sz[v];
+        }
+    }
+}
+int main()
+{
+    optimize();
+    int n, m;
+    cin >> n >> m;
+    for ( int i = 1; i <= m; i++ ) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].PB ( v );
+        adj[v].PB ( u );
+    }
+    dfs ( 1, 0, 0 );
+    return 0;
+}
+
+
+5) http://www.lightoj.com/volume_showpro...
+Link : https://paste.ubuntu.com/p/c8Ptjj2qYT/
+
+int dx[] = {0, 0, +1, -1, +1, +1, -1, -1};
+int dy[] = {+1, -1, 0, 0, +1, -1, +1, -1};
+
+const int mx = 212;
+char c[mx][mx];
+int n, m;
+int levFire[mx][mx], levJan[mx][mx];
+vii s;
+
+
+void bfsFire ()
+{
+    mem ( levFire, -1 );
+    queue<pii> q;
+
+    for ( auto u : s ) {
+        q.push ( u );
+        levFire[u.F][u.S] = 0;
+    }
+
+    while ( !q.empty() ) {
+        int x = q.front().F;
+        int y = q.front().S;
+        q.pop();
+
+        for ( int i = 0; i < 4; i++ ) {
+            int x1 = x + dx[i];
+            int y1 = y + dy[i];
+
+            if ( x1 >= 1 && x1 <= n && y1 >= 1 && y1 <= m && c[x1][y1] != '#' && levFire[x1][y1] == -1 ) {
+                levFire[x1][y1] = levFire[x][y] + 1;
+                q.push( { x1, y1 } );
+            }
+        }
+    }
+
+}
+void bfsJanVai ( int xs, int ys )
+{
+    mem ( levJan, -1 );
+    queue<pii> q;
+    q.push( { xs, ys } );
+    levJan[xs][ys] = 0;
+
+    while ( !q.empty() ) {
+        int x = q.front().F;
+        int y = q.front().S;
+        q.pop();
+
+        for ( int i = 0; i < 4; i++ ) {
+            int x1 = x + dx[i];
+            int y1 = y + dy[i];
+
+            if ( x1 >= 1 && x1 <= n && y1 >= 1 && y1 <= m && c[x1][y1] != '#' && levJan[x1][y1] == -1 && levJan[x][y]+1 < levFire[x1][y1] ){
+                levJan[x1][y1] = levJan[x][y] + 1;
+                q.push( { x1, y1 } );
+            }
+        }
+    }
+
+}
+
+int main()
+{
+  optimize();
+
+    int t;
+    cin >> t;
+    for ( int tc = 1; tc <= t; tc++ ) {
+        cin >> n >> m;
+        int x, y;
+
+        s.clear();
+
+        for ( int i = 1; i <= n; i++ ) {
+            for ( int j = 1; j <= m; j++ ) {
+                cin >> c[i][j];
+
+                if ( c[i][j] == 'J' ) {
+                    x = i, y = j;
+                }
+                else if ( c[i][j] == 'F' ) {
+                    s.PB ( { i, j } );
+                }
+            }
+        }
+
+        bfsFire();
+        bfsJanVai( x, y );
+
+        int ans = inf;
+
+        for ( int i = 1; i <= n; i++ ) {
+            if ( levJan[i][1] != -1 ) ans = min ( ans, levJan[i][1] );  
+        }
+
+        for ( int i = 1; i <= n; i++ ) {
+            if ( levJan[i][m] != -1 ) ans = min ( ans, levJan[i][m] );  
+        }
+
+        for ( int i = 1; i <= m; i++ ) {
+            if ( levJan[1][i] != -1 ) ans = min ( ans, levJan[1][i] );  
+        }
+
+        for ( int i = 1; i <= m; i++ ) {
+            if ( levJan[n][i] != -1 ) ans = min ( ans, levJan[n][i] );  
+        }
+
+        if ( ans == inf ) cout << "Case " << tc << ": IMPOSSIBLE" << endl;
+        else cout << "Case " << tc << ": " << ans + 1 << endl;
+
+    }
+ 
+   return 0;
+}
+
+
+***
+[L3]Class - 1 (Graph Theory - Dijkstra(Theory Part))
+
+
+Discussed topics :
+1) Dijkstra Theory
+
+References : 
+1) http://www.shafaetsplanet.com/?p=1500 
+2) https://cp-algorithms.com/graph/dijks... 
+3) CP-3 Book section 4.4
+
+In this 12 hour length playlist I have discussed the Dijkstra algorithm and solved 11 programming problems (Lightoj, codeforces, LeetCode, GeeksforGeeks, CSES). After watching all the videos and solving all the problems discussed in this playlist you will have a good command on the Dijkstra algorithm InShaALLAH. 
+
+Here is all the problem list discussed in this playlist : 
+
+1) Shortest Routes I ( CSES Problem set )
+
+2) 1002 - Country Roads ( Light Oj )
+
+3) 743. Network Delay Time ( LeetCode )
+
+4) Implementing Dijkstra | Set 1 (Adjacency Matrix) ( Geeks for Geeks )  [Interview question : Amazon, Cisco, Samsung]
+
+5) Minimum Cost Path ( Geeks for Geeks ) [Interview question : Samsung, makemytrip]
+
+6) C. Dijkstra? ( Codeforces )
+
+7) B. Jzzhu and Cities ( Codeforces )
+
+8)  787. Cheapest Flights Within K Stops ( Leet Code )
+
+9) 1281 - New Traffic System ( Light Oj )
+
+10)  1379 - Toll Management ( Light Oj )
+
+11) 1099 - Not the Best ( Light Oj )
+
+
+***[L3]Class - 2 - 1 (Graph Theory - Dijkstra(Implementation Part))[Bangla]
+
+
+Discussed Topics:
+1) Dijkstra Implementation
+2) Shortest Routes I(CSES)
+Problem Link : https://cses.fi/problemset/task/1671/
+My Code : https://github.com/MuhammadShahriar/C...
+
+Practice Problem : 
+https://practice.geeksforgeeks.org/pr...
+Dijkstra Template : 
+https://github.com/MuhammadShahriar/C...
+
+
+// ***dijkstra algorithm   ( O(nlogn + e) ) n-node e-edge
+// help to find single source shortest path
+
+
+/* input output
+5 7
+1 3 3
+1 2 2
+1 4 6
+2 0 6
+2 3 7
+0 4 3
+3 4 5
+0 8 6 8 3 */
+#define fast() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define ll long long
+
+const int mx = 1e5+10;
+vector<pair<int,int>>adj[mx];
+ll dist[mx];
+const ll infll = 9e18;
+
+void dijkstra(int s, int n)
+{
+    for(int i=0;i<=n;i++)dist[i]=infll;
+    dist[s]=0;
+    priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<pair<int,int>>>pq; //eita choto theke boro sort korbe 1st element then 2nd element
+    
+	//priority_queue<pair<int, int> > pq; eita boro theke choto sort korbe 1st element then 2nd element
+
+      // std::priority_queue<int> maxHeap; // Default max heap of integers
+      //std::priority_queue<int, std::vector<int>, std::greater<int>> minHeap; // Min heap of integers
+
+
+    pq.push({0, s}); // starting node(source) e jawar cost 0
+
+    while(!pq.empty())
+    {
+        int u = pq.top().second;
+        ll curD = pq.top().first;
+
+        pq.pop();
+
+        if(dist[u]<curD)continue;
+
+        for(auto p : adj[u])
+        {
+            int v =p.first;
+            ll w = p.second;
+
+            if(curD + w < dist[v]) // relaxing
+            {
+                dist[v] = curD + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+}
+
+int main()
+{
+    fast();
+    int n, m;
+
+    cin>>n>>m;
+
+    for(int i=1;i<=m;i++)
+    {
+        int u,v,w;
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+    }
+
+    dijkstra(0, n);
+    for(int i=0;i<n;i++)cout<<dist[i]<<" ";
+    cout<<endl;
+
+    return 0;
+}
+
+
+/*** shortest path printing using dijktra
+5 6
+1 2 2
+2 5 5
+2 3 4
+1 4 1
+4 3 3
+3 5 1
+1 4 3 5  */
+#define fast() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define  ll  long long int
+
+const ll mx = 1e5+123;
+const ll inf = 1e18;
+
+ll dist[mx];
+vector<pair<ll,ll>> adj[mx];
+int par[mx];
+
+void dijkstra(int s, int n)
+{
+    for(int i=1;i<=n;i++)dist[i]=inf;
+
+    priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<pair<ll,ll>>>pq;
+
+    dist[s]=0;
+
+    pq.push({0, s});
+
+    while(!pq.empty())
+    {
+        int u = pq.top().second;;
+        ll curD = pq.top().first;
+
+        pq.pop();
+
+        if(dist[u]<curD)continue;
+
+        for(auto p : adj[u])
+        {
+            int v =p.first;
+            ll w = p.second;
+
+            if(curD + w < dist[v]) // relaxing
+            {
+                dist[v] = curD + w;
+                pq.push({dist[v], v});
+                par[v] = u;
+                pq.push( { dist[v], v } );
+            }
+        }
+    }
+}
+int main()
+{
+    fast();
+    ll n, m;
+
+    cin>>n>>m;
+
+    while(m--)
+    {
+        int u, v, w;
+        cin>>u>>v>>w;
+        adj[u].push_back({v, w});
+        adj[v].push_back({u, w});
+    }
+    dijkstra(1, n);
+    if(dist[n] == inf){
+        cout<<-1<<endl;
+        return 0;
+    }
+    ll u = n;
+    vector<int>ans = {n};
+    while(par[u]!=0)
+    {
+        ans.push_back(par[u]);
+        u=par[u];
+    }
+    reverse(ans.begin(),ans.end());
+    for(auto u: ans)cout<<u<<" ";
+    cout<<endl;
+
+    return 0;
+}
+
+
+
+****[L3]Class - 3 (Graph Theory - Dijkstra Problems)[Bangla]
+
+** dijkstr negative cycle e kaj kore na
+Discussed Topics:
+1) Dijkstra 
+2) Implementing Dijkstra (GFG) : 
+Problem Link : https://practice.geeksforgeeks.org/pr...
+My Code : https://github.com/MuhammadShahriar/C...
+3) Minimum Cost Path (GFG) :
+Problem Link : https://practice.geeksforgeeks.org/pr...
+Code : https://github.com/MuhammadShahriar/C...
+int dx[] = { 0, 0, +1, -1, -1  +1, -1, +1 };
+int dy[] = { +1, -1, 0, 0, -1, +1, +1, -1 };
+
+int shortest(vector<vector<int> > &grid, int n)
+{
+    long long dist[n][n];
+    for ( int i = 0; i < n; i++ ) {
+        for ( int j = 0; j < n; j++ ) {
+            dist[i][j] = 1e18;
+        }
+    }
+
+    priority_queue< pair<long long, pair<int, int> >, vector<pair<long long, pair<int, int> >>, greater<pair<long long, pair<int, int> >> > pq;
+
+    dist[0][0] = grid[0][0];
+    pq.push ( { grid[0][0], {0, 0} } );
+
+    while ( !pq.empty() ) {
+        pair<int, int> u = pq.top().second;
+        long long curD = pq.top().first;
+        pq.pop();
+
+        int x = u.first;
+        int y = u.second;
+
+        if ( dist[x][y] < curD ) continue;
+
+        for ( int i = 0; i < 4; i++ ) {
+            int x1 = x + dx[i];
+            int y1 = y + dy[i];
+
+            if ( x1 >= 0 && x1 < n && y1 >= 0 && y1 < n && curD + grid[x1][y1] < dist[x1][y1] ) {
+                dist[x1][y1] = curD + grid[x1][y1];
+                pq.push ( { dist[x1][y1], { x1, y1 } } );
+            }
+
+        }
+
+    }
+
+    return dist[n-1][n-1];
+
+}
+
+
+*** [L3]Class - 4 (Graph Theory - Dijkstra path printing and Dependencies on path update )[Bangla]
+
+
+Discussed Topics:
+1) Dijkstra path printing and Dependencies on path update.
+
+2) 743. Network Delay Time(LeetCode) : 
+Problem Link : https://leetcode.com/problems/network...
+My Code : https://github.com/MuhammadShahriar/C...
+
+3) 787. Cheapest Flights Within K Stops (LeetCode) :
+Problem Link : https://leetcode.com/problems/cheapes...
+My Code : https://github.com/MuhammadShahriar/C...
+
+
+3) C. Dijkstra? (Codeforces) :
+Problem Link : https://codeforces.com/contest/20/pro...
+My Code : https://github.com/MuhammadShahriar/C...
+
+
+**** [L3]Class - 5(Graph Theory - Dijkstra getting shortest path that uses an fixed edge. )[Bangla]
+
+Discussed Topics:
+1)  Dijkstra getting shortest path that uses an fixed edge. 
+
+2) 743. Network Delay Time(LeetCode) : 
+Problem Link : http://www.lightoj.com/volume_showpro...
+My Code : https://github.com/MuhammadShahriar/C...
+
+const int mx = 5e3;
+vii adj[mx];
+ll dist[3][mx];
+
+struct info {
+    int u, v, w;
+};
+
+void dijkstra ( int s, int n, int f1 )
+{
+    for ( int i = 1; i <= n; i++ ) dist[f1][i] = inf;
+
+    priority_queue< pll, vll, greater<pll> > pq;
+
+    dist[f1][s] = 0;
+    pq.push ( { 0, s } );
+
+    while ( !pq.empty() ) {
+        int u = pq.top().S;
+        ll curD = pq.top().F;
+        pq.pop();
+
+        if ( curD > dist[f1][u] ) continue;
+
+        for ( auto v : adj[u] ) {
+            if ( v.S + curD < dist[f1][v.F] ) {
+                dist[f1][v.F] =  v.S + curD;
+                pq.push( { dist[f1][v.F], v.F } );
+            }
+        }
+
+    }
+}
+
+
+int main()
+{
+	optimize();
+
+    int T;
+    cin >> T;
+    for ( int tc = 1; tc <= T; tc++ ) {
+        for( int i = 1; i <= 5e3; i++ ) adj[i].clear();
+
+        vector<info> edge;
+        int n, m;
+        cin >> n >> m;
+        for(int i = 1; i <= m; i++) {
+            int u, v, w;
+            cin >> u >> v >> w;
+            adj[u].PB ( { v, w } );
+            adj[v].PB ( { u, w } );
+            edge.PB ( {u, v, w} );
+        }
+
+        dijkstra( 1, n, 0 );
+        dijkstra( n, n, 1 );
+
+        ll s1 = dist[0][n];
+        ll s2 = infLL;
+
+        for ( auto e : edge ) {
+            ll curD = min ( dist[0][e.u] + dist[1][e.v], dist[1][e.u] + dist[0][e.v] );
+
+            if ( curD + e.w > s1 ) {
+                s2 = min ( s2, curD + e.w );
+            }
+
+            if ( curD + e.w == s1 )  s2 = min ( s2, curD + ( e.w * 3 ) );
+        }
+
+        cout << "Case " << tc << ": " << s2 << endl;
+
+    }
+
+
+	return 0;
+}
+
+[L3]Class - 6 (Graph Theory - Dijkstra Practice Problem)[Bangla]
+
+Discussed Topics:
+1) Problem Name : Toll Management (LightOJ) 
+Link : https://lightoj.com/problem/toll-mana... 
+My Code : https://paste.ubuntu.com/p/yNpW4DRHYV/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<ll> vl;
+typedef vector<vi> vvi;
+typedef vector<vl> vvl;
+typedef pair<int,int> pii;
+typedef pair<double, double> pdd;
+typedef pair<ll, ll> pll;
+typedef vector<pii> vii;
+typedef vector<pll> vll;
+typedef double dl;
+
+#define endl '\n'
+#define PB push_back
+#define F first
+#define S second
+#define all(a) (a).begin(),(a).end()
+#define rall(a) (a).rbegin(),(a).rend()
+#define sz(x) (int)x.size()
+
+const double PI = acos(-1);
+const double eps = 1e-9;
+const int inf = 2000000000;
+const ll infLL = 1000000000000000000;
+#define MOD 1000000007
+
+#define mem(a,b) memset(a, b, sizeof(a) )
+#define sqr(a) ((a) * (a))
+
+#define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+
+
+int dx[] = { 0, 0, +1, -1, -1  +1, -1, +1 };
+int dy[] = { +1, -1, 0, 0, -1, +1, +1, -1 };
+
+const int mx = 1e4+123;
+vii adj[3][mx];
+ll dist[3][mx];
+
+struct info {
+    int u, v, w;
+};
+
+void dijkstra ( int s, int n, int f1 )
+{
+    for ( int i = 1; i <= n; i++ ) dist[f1][i] = infLL;
+    dist[f1][s] = 0;
+    priority_queue <pii, vii, greater<pii>> pq;
+    
+    pq.push ( { 0, s } );
+    
+    while ( !pq.empty() ) {
+        int u = pq.top().S;
+        ll curD = pq.top().F;
+        pq.pop();
+        
+        if ( dist[f1][u] < curD ) continue;
+        
+        for ( auto e : adj[f1][u] ) {
+            int v = e.F;
+            int w = e.S;
+            
+            if ( curD + w < dist[f1][v] ) {
+                dist[f1][v] = curD + w;
+                pq.push ( { dist[f1][v], v }  );
+            }
+        }
+        
+        
+    }
+}
+
+int main()
+{
+    
+    optimize();
+    
+    int T;
+    cin >> T;
+    for ( int tc = 1; tc <= T; tc++ ) {
+        int n, m, s, t, p;
+        cin >> n >> m >> s >> t >> p;
+        vector<info> edge;
+
+        for ( int i = 1; i <= n; i++ ) {
+            adj[0][i].clear();
+            adj[1][i].clear();
+        }
+        
+        for ( int i = 0; i < m; i++ ) {
+            int u, v, w;
+            cin >> u >> v >> w;
+            adj[0][u].PB ( { v, w } );
+            adj[1][v].PB ( { u, w } );
+            
+            edge.PB ( {u, v, w} );
+        }
+        
+        dijkstra ( s, n, 0 );
+        dijkstra ( t, n, 1 );
+        
+        
+        ll ans = -1;
+        
+        for ( auto e : edge ) {
+            int u = e.u;
+            int v = e.v;
+            int w = e.w;
+            ll cost = dist[0][u] + w + dist[1][v];
+            
+            if ( cost <= p ) {
+                ans = max ( ans, (ll)w );
+            }
+        }
+        
+        cout << "Case " << tc << ": " << ans << endl;
+    }
+
+
+	return 0;
+}
+
+*** [L3]Class - 7 (Graph Theory - Dijkstra Practice Problem)[Bangla]
+
+Discussed Topics:
+1) Problem Name : New Traffic System (LightOJ) 
+Link : https://lightoj.com/problem/new-traffic-system
+My Code : https://github.com/MuhammadShahriar/CPS-Level-3-Codes-and-other-resources/blob/main/Classes/Class-8/New%20Traffic%20System.cpp
+
+#define endl '\n'
+#define PB push_back
+#define F first
+#define S second
+#define all(a) (a).begin(),(a).end()
+#define rall(a) (a).rbegin(),(a).rend()
+#define sz(x) (int)x.size()
+
+const double PI = acos(-1);
+const double eps = 1e-9;
+const int inf = 2e9;
+const ll infLL = 1e18;
+#define MOD 1000000007
+
+#define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define fraction() cout.unsetf(ios::floatfield); cout.precision(10); cout.setf(ios::fixed,ios::floatfield);
+#define file() freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
+
+ll gcd ( ll a, ll b ) { return __gcd ( a, b ); }
+ll lcm ( ll a, ll b ) { return a * ( b / gcd ( a, b ) ); }
+
+
+int dx[] = { 0, 0, +1, -1, -1  +1, -1, +1 };
+int dy[] = { +1, -1, 0, 0, -1, +1, +1, -1 };
+
+
+const int mx = 1e4+123;
+vector<vi> adj[mx];
+ll dist[12][mx];
+
+void dijkstra ( int s, int n, int d )
+{
+    for ( int i = 0; i <= d; i++ ) {
+        for ( int j = 0; j < n; j++ ) {
+            dist[i][j] = infLL;
+        }
+    }
+
+    priority_queue<vl, vector<vl>, greater<vl>> pq;
+
+    dist[0][s] = 0;
+    pq.push ( { 0, 0, s } );
+
+    while ( !pq.empty() ) {
+        ll curD = pq.top()[0];
+        int cnt = pq.top()[1];
+        int u = pq.top()[2];
+        pq.pop();
+
+        if ( dist[cnt][u] < curD ) continue;
+
+        for ( auto e : adj[u] ) {
+            int v = e[0];
+            ll w = e[1];
+            int typ = e[2];
+
+            if ( cnt + typ <= d && dist[cnt][u] + w < dist[cnt+typ][v] ) {
+                dist[cnt+typ][v] = dist[cnt][u] + w;
+                pq.push ( { dist[cnt+typ][v], cnt+typ, v } );
+            }
+        }
+    }
+
+}
+int main()
+{
+	optimize();
+
+	int T;
+	cin >> T;
+	for ( int tc = 1; tc <= T; tc++ ) {
+	    int n, m, k, d;
+	    cin >> n >> m >> k >> d;
+	    for ( int i = 0; i < n; i++ ) adj[i].clear();
+
+	    for ( int i = 0; i < m; i++ ) {
+	        int u, v, w;
+	        cin >> u >> v >> w;
+	        adj[u].PB ( { v, w, 0 } );
+	    }
+
+
+	    for ( int i = 0; i < k; i++ ) {
+	        int u, v, w;
+	        cin >> u >> v >> w;
+	        adj[u].PB ( { v, w, 1 } );
+	    }
+
+	    dijkstra ( 0, n, d );
+
+	    ll ans = infLL;
+	    for ( int i = 0; i <= d; i++ ) {
+	        ans = min ( ans, dist[i][n-1] );
+	    }
+
+	    if ( ans == infLL ) cout << "Case " << tc << ": Impossible\n";
+	    else cout << "Case " << tc << ": " << ans << endl;
+	}
+
+	return 0;
+}
+
+Task : 
+2) Problem Name : Brush (V) (LightOJ) 
+Link : https://lightoj.com/problem/brush-5 
+
+
+CPS ACADEMY L3 - GRAPH dijkstra prjnto hoise( l3 cls 7 ) prjnto hoise
+bakigula pore korbo cf 1400+ hoile
+
+####### DP ######
+
+
+**** [L2]Class - 0(Test Class) ( Recursive function and Basic dynamic programming )[Bangla]
+
+Discussed topics :
+1) Recursive function
+2) Factorial
+3) Fibonacci using recursion
+4) Recursive tree
+5) Basic dynamic programming ( dp )
+6) Fibonacci using dp
+7) Dp state, Time & memory complexity calculation of dp.
+8) LOJ 1006 - Hex-a-bonacci
+
+*** [L2]Class - 7 ( Introduction to dynamic programming )
+
+** dp -> joto besi practice toto clear hbe
+Discussed topics :
+1) Introduction to dynamic programming
+2 ) Frog 1 (Atcoder)
+Link : https://atcoder.jp/contests/dp/tasks/...
+My Code: https://paste.ubuntu.com/p/gF6TPYKfpV/
+
+///In the name of ALLAH
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl '\n'
+
+const int mx = 1e5+123;
+int h[mx], n;
+int dp[mx];
+
+int solve ( int i )
+{
+    if ( i == n ) return 0;
+    if ( dp[i] != -1 ) return dp[i];
+
+    int ret1 = 2e9, ret2 = 2e9;
+
+    if ( i+1 <= n ) ret1 = abs ( h[i] - h[i+1] ) + solve ( i+1 );
+    if ( i+2 <= n ) ret2 = abs ( h[i] - h[i+2] ) + solve ( i+2 );
+
+    dp[i] = min ( ret1, ret2 );
+    return dp[i];
+}
+
+
+int main()
+{
+
+    cin >> n;
+    for ( int i = 1; i <= n; i++ ) cin >> h[i];
+
+    memset ( dp, -1, sizeof ( dp ) );
+    cout << solve ( 1 ) << endl;
+
+    return 0;
+}
+
+2) Frog 2 (Atcoder)
+Link : https://atcoder.jp/contests/dp/tasks/...
+My Code : https://paste.ubuntu.com/p/9wyMP56Pd3/
+
+***[L2]Class - 8 ( Dynamic programming practice problem )
+
+dp : 1. find solution for all element
+     2. find optimise soluton
+Discussed topics :
+
+1)  Vacation (Atcoder)
+Link :  https://atcoder.jp/contests/dp/tasks/...
+My Code : https://paste.ubuntu.com/p/YR6vGRFSZz/
+#include<bits/stdc++.h>
+using namespace std;
+
+const int mx = 1e5+123;
+int dp[mx][4], n;
+int a[mx][4];
+
+int solve ( int i, int f1 )
+{
+    if ( i > n ) return 0;
+    if ( dp[i][f1] != -1 ) return dp[i][f1];
+
+    int ret = 0;
+    for ( int j = 1; j <= 3; j++ ) {
+        if ( j != f1 ) {
+            ret = max ( ret, a[i][j] + solve ( i+1, j ) );
+        }
+    }
+
+    return dp[i][f1] = ret;
+}
+
+int main()
+{
+    cin >> n;
+    for ( int i = 1; i <= n; i++ ) cin >> a[i][1] >> a[i][2] >> a[i][3];
+
+    memset ( dp, -1, sizeof (dp) );
+    cout << solve ( 0, 0 ) << endl;
+    
+}
+
+***[L2]Class - 9 ( Dynamic programming practice problem )
+Discussed topics :
+
+1)  Knapsack 1 (Atcoder)
+Link : https://atcoder.jp/contests/dp/tasks/...
+My Code : https://paste.ubuntu.com/p/DmdS54xhQT/
+
+// In the name of ALLAH
+
+#include<bits/stdc++.h>
+using namespace std;
+
+const int mx = 1e5+123;
+long long dp[123][mx];
+
+int p[123], w[123];
+int Sz, n;
+
+long long solve ( int i, int curW )
+{
+    if ( i > n ) return 0;
+    if ( dp[i][curW] != -1 ) return dp[i][curW];
+
+    long long ret1 = 0, ret2 = 0;
+
+    if ( w[i] + curW <= Sz ) ret1 = p[i] + solve ( i+1, w[i] + curW );
+    ret2 = solve ( i+1, curW );
+
+    return dp[i][curW] = max ( ret1, ret2 );
+}
+
+
+int main()
+{
+    cin >> n >> Sz;
+    for ( int i = 1; i <= n; i++ ) {
+        cin >> w[i] >> p[i];
+    }
+
+    memset ( dp, -1, sizeof ( dp ) );
+    cout << solve ( 1, 0 ) << endl;
+
+    
+}
+
+Similar Practice Problems : 
+1) Sudden Tour! (Toph Selise Coding Challenge)
+Link : https://toph.co/arena?contest=selise-...
+2) KNAPSACK - The Knapsack Problem (Spoj)
+Link : https://www.spoj.com/problems/KNAPSACK/
+
+
+***[L2]Class - 10( Dynamic Programming solution print) [bangla]
+
+https://codeforces.com/contest/1341/problem/D
+
+#define mem(a,b) memset(a, b, sizeof(a) )
+#define sqr(a) ((a) * (a))
+
+#define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define fraction() cout.unsetf(ios::floatfield); cout.precision(10); cout.setf(ios::fixed,ios::floatfield);
+#define file() freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
+
+int dx[] = {0, 0, +1, -1, +1, +1, -1, -1};
+int dy[] = {+1, -1, 0, 0, +1, -1, +1, -1};
+
+inline ll gcd ( ll a, ll b ) { return __gcd (a, b); }
+inline ll lcm ( ll a, ll b ) { return ( a * ( b / gcd (a, b) ) ); }
+
+
+
+#define dbg(args...) do {cerr << #args << " : "; faltu(args); } while(0)
+void faltu () {            cerr << endl;}
+template < typename T, typename ... hello>void faltu( T arg, const hello &... rest) {cerr << arg << ' ';faltu(rest...);}
+
+
+const int mx = 2e3+123;
+int dp[mx][mx], n, k;
+
+
+struct info {
+  int i, c, ans;
+  info (){}
+  info ( int i, int c, int ans ) : i(i), c(c), ans(ans) {}
+} dir[mx][mx];
+
+string s[] = {"1110111", "0010010", "1011101", "1011011", "0111010", "1101011", "1101111", "1010010", "1111111", "1111011"};
+
+
+string a[mx];
+
+int getVal ( string s1, string s2 )
+{
+  int cnt = 0;
+  for ( int i = 0; i < sz ( s1 ); i++ ) {
+    if ( s1[i] == '0' && s2[i] == '1' ) return -1;
+    if ( s1[i] == '1' && s2[i] == '0' ) cnt++;
+  }
+
+  return cnt;
+}
+
+int solve ( int i, int c )
+{
+  if ( i == n ) return ( c == k );
+  if ( dp[i][c] != -1 ) return dp[i][c];
+
+  int ret = 0;
+
+  for ( int j = 9; j >= 0; j-- ) {
+    int cost = getVal ( s[j], a[i] );
+    if ( cost == -1 ) continue;
+
+    if ( c + cost <= k ) {
+      int d = solve ( i+1, c + cost );
+      if ( d == 1 ) {
+        ret = 1;
+        dir[i][c] = info ( i+1, c+cost, j );
+        break;
+      }
+    }
+  }
+
+  return dp[i][c] = ret;
+}
+
+void print ( int i, int c )
+{
+  if ( dir[i][c].ans == -1 ) return;
+  cout << dir[i][c].ans;
+  print ( dir[i][c].i , dir[i][c].c );
+}
+
+int main()
+{
+	optimize();
+
+  cin >> n >> k;
+  for ( int  i = 0; i < n; i++ ) cin >> a[i];
+
+  for ( int i = 0; i < mx; i++ ) {
+    for ( int j = 0; j < mx; j++ ) {
+      dir[i][j] = info ( -1, -1, -1 );
+    }
+  }
+
+  mem ( dp, -1 );
+  if ( solve ( 0, 0 ) == 1 ) {
+    print ( 0, 0 );
+  }
+  else cout << "-1";
+
+  cout << endl;
+
+	
+	return 0;
+}
