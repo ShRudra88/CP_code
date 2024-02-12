@@ -1,0 +1,523 @@
+
+how can i know a problem can solve using binary search
+
+
+Determining whether a problem can be solved using binary search involves understanding the characteristics and constraints of the problem. Binary search is a powerful algorithmic technique that can be applied to problems that exhibit certain properties. Here are some key considerations to help you determine if binary search is a suitable approach:
+
+Sorted Data: Binary search is most commonly used on sorted data structures such as arrays or lists. The data must be in ascending or descending order for binary search to work effectively.
+
+Monotonicity: The problem should exhibit a monotonic property, meaning that if a value X satisfies the problem's condition, all values greater than X will also satisfy it (or all values less than X will satisfy it, depending on the problem). In other words, there should be a clear ordering of elements based on the problem condition.
+
+Divide and Conquer: Binary search follows a divide-and-conquer approach, repeatedly dividing the search space into two halves. The problem should allow you to divide the search space in such a way that you can eliminate half of it in each step.
+
+Efficient Comparison: Binary search relies on efficient comparison operations. You should be able to compare elements quickly and determine whether the desired value falls to the left or right of the current midpoint.
+
+Decision Problems: Binary search is commonly used for decision problems, where you need to find a specific element or determine whether it exists in the dataset. It's less suitable for problems that require enumeration or counting.
+
+Time Complexity: Binary search has a time complexity of O(log N), where N is the size of the search space. If the problem's search space is too large, other algorithms may be more suitable.
+
+Space Complexity: Binary search typically has a space complexity of O(1) because it doesn't require additional data structures.
+
+Constraints: Consider the problem's constraints, such as memory limitations and the range of possible values. If the problem's size or data range exceeds what binary search can handle efficiently, you may need an alternative approach.
+
+Application: Look for patterns and similarities between your problem and classic binary search problems. Learning from existing binary search examples can provide insights into whether it's a viable approach.
+
+Edge Cases: Consider edge cases, such as when the desired element is at the beginning, end, or absent from the dataset. Ensure that binary search can handle these scenarios correctly.
+
+It's important to remember that binary search is not a universal solution and may not be applicable to all problems. Sometimes, alternative search algorithms like linear search, hash tables, or tree-based structures may be more suitable, depending on the nature of the problem and its constraints. Therefore, analyzing the problem thoroughly and considering its characteristics is crucial before deciding to use binary search.
+
+
+
+
+User
+how can i know a problem can solve using 2 pointers
+
+Two-pointer techniques are often useful for solving problems that involve searching for a pair or subarray with specific properties within a sequence, array, or string. Here are some indications that a problem can be solved using the two-pointer approach:
+
+Ordered Data: The data in the problem should be sorted or follow some natural order. Two-pointer techniques are most effective when applied to ordered data structures like arrays or linked lists.
+
+Seeking Pairs or Subarrays: Two-pointer techniques are commonly used to find pairs of elements or subarrays that meet certain conditions, such as having a specific sum, difference, or distance between them.
+
+Directional Movement: The problem should involve moving pointers in opposite directions (left and right) or towards each other. This is typical in scenarios where you're trying to converge on a solution by adjusting the pointers.
+
+Efficient Comparison: The elements should be efficiently comparable, meaning you can quickly determine whether one element is greater, less than, or equal to another.
+
+Linear Time Complexity: Two-pointer techniques often have a time complexity of O(N), where N is the size of the input data, making them efficient for large datasets. However, the specific problem's constraints and requirements may affect the complexity.
+
+Fixed Pointers: Typically, two-pointer problems involve two pointers that move towards each other or in parallel while maintaining a constant distance or relationship between them.
+
+Multiple Pointers: Some problems may require more than two pointers, such as the "Three Sum" problem, which uses three pointers. However, the fundamental concept of using multiple pointers to traverse the data remains the same.
+
+Constraints: Consider the constraints of the problem, such as memory limitations and the range of possible values. Ensure that the two-pointer technique can handle these constraints effectively.
+
+Application: Look for patterns and similarities between your problem and classic two-pointer problems. Understanding common two-pointer scenarios can help you recognize when to apply this technique.
+
+Edge Cases: Consider edge cases, such as situations where the desired pairs or subarrays are at the beginning, end, or not present in the dataset. Make sure your two-pointer approach accounts for these cases.
+
+Two-pointer techniques are particularly useful for problems involving searching, windowing, or sliding through data structures. Examples include finding pairs with a target sum, searching for a subarray with a specific sum, or checking for palindrome substrings within a string.
+
+It's essential to thoroughly analyze the problem statement, understand the requirements, and identify the relationships between elements in the data before deciding to use the two-pointer technique. Additionally, practice and experience with various problems will improve your ability to recognize when this approach is appropriate.
+
+
+
+
+User
+how can i know a problem can solve using slinding window
+
+The sliding window technique is a useful approach for solving problems that involve maintaining a dynamic window or subarray within an array or string to optimize a specific objective or satisfy certain conditions. To determine if a problem can be solved using the sliding window technique, consider the following characteristics:
+
+Sequential Data: The problem should involve sequential data, such as an array, string, or linked list. The sliding window technique is most commonly applied to such data structures.
+
+Window Size: The problem should require you to find a subarray or subsequence of a specific size or length. The window size can be fixed or variable, but the key is that it needs to be defined by the problem statement.
+
+Objective Function: The problem should have an objective function or condition that can be optimized or satisfied within the sliding window. This function might involve maximizing, minimizing, or checking for specific properties of the elements within the window.
+
+Directional Movement: The window typically moves either from left to right or from right to left, maintaining a fixed or variable size. The direction should be determined by the problem's requirements.
+
+Efficient Updates: You should be able to efficiently update the window as it slides, typically by removing elements from the front and adding elements from the back. This ensures that the sliding window technique can be implemented with a time complexity of O(N), where N is the size of the input data.
+
+Fixed or Variable Window: Depending on the problem, the window size may remain constant or change dynamically based on certain conditions. Some problems may involve finding variable-sized windows that satisfy specific criteria.
+
+Constraints: Consider the constraints of the problem, including memory limitations and the range of possible values. Ensure that the sliding window technique can handle these constraints effectively.
+
+Application: Familiarity with common sliding window patterns and recognizing similarities between your problem and existing sliding window problems can help you identify when to apply this technique.
+
+Edge Cases: Account for edge cases, such as situations where the desired window is at the beginning, end, or not present in the dataset. Make sure your sliding window approach handles these cases appropriately.
+
+Examples of problems suitable for the sliding window technique include finding the maximum sum subarray of a fixed size, searching for a substring of a given length with specific properties, or tracking the longest substring with unique characters within a string.
+
+Before applying the sliding window technique, carefully analyze the problem statement, understand the requirements, and identify the objectives or conditions that need to be met within the sliding window. With practice and experience, you'll become better at recognizing when this approach is applicable and effective.
+
+
+
+
+User
+how can i know a problem can solve using dp
+
+Dynamic programming (DP) is a powerful technique for solving problems that involve optimization or counting by breaking them down into smaller subproblems and solving those subproblems only once, storing their solutions in a table to avoid redundant calculations. To determine if a problem can be solved using DP, consider the following characteristics:
+
+Optimization Problem: DP is typically used to solve optimization problems, where you are looking to maximize or minimize a value, such as finding the shortest path, maximizing profit, or minimizing cost.
+
+Recursive Structure: The problem should have a recursive or overlapping subproblem structure. In other words, it should be possible to break the problem down into smaller, overlapping subproblems that can be solved independently.
+
+Memoization Potential: DP often involves memoization, which means storing solutions to subproblems in a table (usually an array or a hash table) to avoid redundant calculations. The problem should have subproblems that can be computed efficiently and reused.
+
+Directionality: DP problems can be categorized into two main types: top-down (recursive) and bottom-up (iterative). Depending on the problem, you may need to determine whether a top-down or bottom-up approach is more suitable.
+
+Optimal Substructure: The problem should exhibit optimal substructure, which means that the optimal solution to the overall problem can be constructed from the optimal solutions of its subproblems. This property is essential for DP.
+
+State Transition: You should be able to define a state transition or recurrence relation that expresses the solution to a subproblem in terms of solutions to smaller subproblems. This transition typically involves a function that relates the current state to previous states.
+
+Base Cases: DP algorithms often require base cases or initial conditions that specify the solutions to the smallest subproblems. Ensure that you can define these base cases for your problem.
+
+Time and Space Complexity: Consider the time and space complexity of your DP solution. DP solutions can be memory-intensive due to memoization, so you should ensure that your problem can be solved within the available memory constraints.
+
+Constraints: Take into account any problem-specific constraints, such as the range of input values, which may affect the design of your DP algorithm.
+
+Recurrence Complexity: Analyze the complexity of the recurrence relation and ensure that it doesn't result in an exponential number of subproblems. If it does, you might need to optimize your DP solution.
+
+Examples of problems suitable for DP include finding the shortest path in a graph (e.g., Dijkstra's algorithm), computing Fibonacci numbers efficiently, finding the longest increasing subsequence in an array, and many others.
+
+Before applying DP, carefully analyze the problem, look for recursive patterns, and try to break it down into smaller subproblems. If you can identify these characteristics, DP might be a suitable approach. Start by solving the subproblems and storing their solutions in a table to build up to the solution for the main problem. With practice, you'll become better at recognizing when DP is applicable and effective.
+
+
+
+
+User
+how can i know a problem can solve greedy
+
+
+1 / 2
+
+Determining if a problem can be solved using a greedy algorithm involves identifying certain characteristics and properties of the problem. Greedy algorithms are a specific class of algorithms that make locally optimal choices at each step with the hope of finding a globally optimal solution. Here are some indications that a problem can be solved using a greedy approach:
+
+Greedy Choice Property: The problem should have the property that making a locally optimal choice at each step leads to a globally optimal solution. In other words, you should be able to select the best option at each step without worrying about future consequences.
+
+Optimal Substructure: The problem should exhibit optimal substructure, meaning that the solution to the overall problem can be constructed by combining solutions to smaller subproblems. In a greedy approach, you typically make decisions step by step, and each step contributes to the final solution.
+
+No Need for Backtracking: Greedy algorithms usually do not backtrack. Once a choice is made, it is not revised later. Therefore, the problem should not require reconsidering or undoing previous decisions.
+
+Single-Pass or Sequential Solution: Greedy algorithms often work by examining elements or components in a sequential manner, such as sorting by a certain criterion and selecting elements in that order.
+
+Natural Sorting or Ordering: Many greedy problems involve sorting or ordering the data according to a specific criterion. The greedy approach often picks elements in a certain order, such as by value, weight, or some other relevant metric.
+
+Local Optimality Leads to Global Optimality: In a greedy approach, making the best choice at each step should ensure that the overall solution is also optimal. There should be no situations where a locally suboptimal choice results in a better global solution.
+
+Greedy Choice is Safe: The greedy choice made at each step should be a safe choice, meaning it does not lead to invalid solutions or cause issues later in the algorithm.
+
+Efficiency: Greedy algorithms are typically efficient and have low time complexity. Therefore, problems that involve processing large datasets or have strict time constraints may be suitable for a greedy approach.
+
+Problem Independence: Greedy algorithms work well when the subproblems are independent of each other. Each step's choice should not affect the choices or outcomes of other steps.
+
+Constraints: Consider any problem-specific constraints, such as memory limitations or the range of possible values. Ensure that a greedy algorithm can handle these constraints effectively.
+
+Examples of problems suitable for greedy algorithms include finding the minimum spanning tree in a graph (Kruskal's algorithm), the Huffman coding problem, and the coin change problem (finding the minimum number of coins to make change).
+
+To determine if a problem can be solved using a greedy approach, it's crucial to carefully analyze the problem statement, understand the criteria for making greedy choices, and verify that the problem exhibits the properties mentioned above. Additionally, be aware that not all problems can be solved greedily, and in some cases, a greedy approach may lead to suboptimal or incorrect solutions.
+
+
+
+
+User
+how can i know a problem can solve using tree
+
+Determining if a problem can be solved using tree-based algorithms or data structures depends on the nature of the problem and the characteristics it exhibits. Trees are versatile data structures and can be applied to a wide range of problems. Here are some indications that a problem can be solved using tree-related techniques:
+
+Hierarchy or Structure: Problems that involve hierarchical or structured data, where elements are related to one another in a parent-child relationship, often lend themselves to tree solutions. For example, problems involving organization charts, file systems, or family trees.
+
+Traversal or Search: If the problem requires searching or traversing data efficiently, trees are excellent choices. Binary search trees, AVL trees, or B-trees, for instance, are designed for efficient searching and retrieval.
+
+Hierarchical Relationships: When the problem exhibits hierarchical relationships between elements, such as parent-child relationships or ancestor-descendant relationships, it's a strong indicator that a tree structure may be applicable.
+
+Sorting or Order Maintenance: If the problem involves maintaining elements in a specific order, such as maintaining a sorted list or priority queue, binary search trees (e.g., binary search tree or heap) can be employed.
+
+Pathfinding or Graph Problems: Some tree structures like spanning trees or tries can be used to solve graph-related problems, including finding shortest paths, minimum spanning trees, or routing problems.
+
+Efficiency Requirements: Consider the time and space efficiency requirements of the problem. Trees can provide efficient solutions for many problems, especially when balanced or optimized for specific operations.
+
+Constraint Satisfaction: If the problem involves satisfying certain constraints or conditions, decision trees or backtracking algorithms that use trees to explore possible solutions may be suitable.
+
+Dynamic Data: Problems that involve dynamic or evolving data, where elements can be inserted, deleted, or updated frequently, may benefit from tree-based data structures like self-balancing binary search trees (e.g., AVL trees or Red-Black trees).
+
+Hierarchical Data Representation: When you need to represent and manipulate hierarchical data, such as XML or JSON parsing, tree structures are commonly used to represent the hierarchical structure of the data.
+
+Combinatorial Problems: Some combinatorial problems, such as generating permutations or combinations, can be solved using tree-based algorithms like depth-first search (DFS) on tree structures.
+
+Tree Algorithms: Familiarity with classic tree algorithms like traversal (pre-order, in-order, post-order), depth-first search, breadth-first search, and tree balancing techniques can help identify problems that can be solved using trees.
+
+Constraint Analysis: Carefully analyze any constraints associated with the problem, such as memory limitations or the range of possible values, to ensure that tree-based solutions are feasible.
+
+Before applying a tree-based solution, thoroughly understand the problem statement, its requirements, and the relationships between elements. Choose an appropriate tree structure or algorithm based on the specific problem characteristics. Keep in mind that trees come in various forms, including binary trees, balanced trees, trie structures, and more, each suited to different types of problems.
+
+
+
+
+User
+how can i know a problem can solve using number theory
+
+Determining if a problem can be solved using number theory involves recognizing certain mathematical properties and patterns within the problem statement. Number theory is a branch of mathematics that deals with the properties and relationships of integers. Here are some indications that a problem can be solved using number theory:
+
+Integer-Related Properties: Problems that involve integers, divisibility, prime numbers, modular arithmetic, or other number-related properties often benefit from number theory.
+
+Prime Factorization: Problems that require prime factorization or prime number manipulation are strong candidates for a number theory approach. For example, factoring large numbers for cryptography or finding common factors in fractions.
+
+Divisibility: If the problem involves determining whether one number is divisible by another, checking divisibility rules, or finding the greatest common divisor (GCD) or least common multiple (LCM), number theory is likely relevant.
+
+Modular Arithmetic: Problems that require operations within a modulus, such as finding remainders or solving congruences, often fall under the realm of number theory.
+
+Number Patterns: Recognize any number patterns or sequences within the problem. Problems that involve sequences like Fibonacci numbers or problems that ask for the nth term in a sequence may have number theory solutions.
+
+Diophantine Equations: Diophantine equations are equations that involve integer solutions. Problems that involve finding integer solutions to equations, such as the Pythagorean theorem (a² + b² = c²), are number theory problems.
+
+Cryptographic Problems: Number theory plays a crucial role in cryptography, such as RSA encryption, where the security relies on the difficulty of factoring large numbers.
+
+Counting and Combinatorics: Some counting and combinatorial problems can be solved using number theory techniques, such as using permutations and combinations.
+
+Properties of Special Numbers: Special numbers like perfect numbers, abundant numbers, amicable numbers, or prime numbers may be relevant to the problem.
+
+Fermat's Little Theorem and Euler's Totient Function: Problems that involve concepts like Fermat's Little Theorem or Euler's Totient Function often have number theory solutions.
+
+Number Representations: Problems related to number representations, such as Roman numerals, binary, or hexadecimal systems, may involve number theory concepts.
+
+Congruence and Residue: If the problem requires working with congruences or residues, such as solving linear congruences, number theory can be a valuable tool.
+
+Geometric or Arithmetic Progressions: Problems that involve geometric or arithmetic progressions may have number theory solutions, especially if you're looking for specific terms or properties within these sequences.
+
+Prime Sieves: Problems related to finding or counting prime numbers can often be solved using number theory techniques, such as prime sieves like the Sieve of Eratosthenes.
+
+Constraints and Bounds: Analyze any constraints or bounds within the problem statement to ensure that a number theory approach is practical given the size of numbers involved.
+
+To determine if a problem can be solved using number theory, carefully analyze the problem statement, look for integer-related properties, and consider whether any of the above characteristics are present. Familiarity with key number theory concepts and techniques will also help you recognize when number theory is applicable.
+
+
+***https://atcoder.jp/contests/abc326/tasks/abc326_c
+// PROBLEM
+    acquire all the gifts whose coordinates satisfy  x<=Ai<x+b.
+    input  : 8 6
+              2 3 5 7 11 13 17 19
+    output : 4
+    // ANS 1
+    cin>>n>>b;
+    vector<ll>v;
+    for(i=0;i<n;i++)
+    {
+        cin>>a;
+        v.push_back(a);
+    }
+    sort(v.begin(),v.end());
+
+    for(i=0;i<n;i++)
+    {
+        cnt = lower_bound(v.begin(),v.end(),v[i]+b)-v.begin()-i;
+        //cout<<cnt<<endl;
+        maxi = max(maxi, cnt);
+    }
+    cout<<maxi<<endl;
+    
+    // ANS 2
+    sort(a.begin(), a.end());
+    int ans = 0;
+    for (int i = 0, j = 0; i < n; i++) {
+        while (j < n && a[j] - a[i] < m) j++;
+        ans = max(ans, j - i);
+    }
+    cout << ans;
+
+// ** running time e sort korte priority queue use korte hbe
+https://codeforces.com/problemset/problem/1728/C
+cin>>n;
+    vector<ll>v;
+    priority_queue<ll> pq1, pq2;
+    for(i=0;i<n;i++)
+    {
+        cin>>a;
+        pq1.push(a);
+    }for(i=0;i<n;i++)
+    {
+        cin>>a;
+        pq2.push(a);
+    }
+    while(!pq1.empty()){
+        x = pq1.top();
+        y = pq2.top();
+        cnt=0, cnt1=0;
+
+        while(x)
+        {
+            cnt++;
+            x/=10;
+        }while(y)
+        {
+            cnt1++;
+            y/=10;
+        }
+        x = pq1.top();
+        y = pq2.top();
+
+        if(x > y)
+        {
+            ans++;
+            pq1.pop();
+            pq1.push(cnt);
+        }else if(x < y)
+        {
+            ans++;
+            pq2.pop();
+            pq2.push(cnt1);
+        }else{
+            pq1.pop();
+            pq2.pop();
+        }
+        //cout<<pq1.top()<<endl;
+        //cout<<pq2.top()<<endl;
+    }
+    //cout<<endl;
+
+    cout<<ans<<endl;
+
+SAME PROBLEM (SORT IN RUNNING TIME)
+The votes will be counted in order from first to last, and after each vote is counted, the current winner will be updated and displayed.
+
+The candidate with the most votes among those counted is the winner. If there are multiple candidates with the most votes, 
+the one with the smallest candidate number is the winner.
+INPUT : 3 7   // N K // N = number of candidate, k = total vote data
+1 2 2 3 1 3 3
+OUTPUT : 1 1 2 2 1 1 3
+void solve()
+{
+    cin>>n>>a;
+    map<ll,ll>mp;
+    vector<ll>v;
+    priority_queue<pair<ll,ll>> pq;
+
+    for(i=0;i<a;i++)
+    {
+        cin>>b;
+        mp[b]++;
+        c=mp[b];
+        pq.push({c,-b});
+        pair<ll,ll>p = pq.top();
+        l=p.second;
+        v.push_back(l);
+    }
+    for(auto u: v)cout<<(-u)<<endl;
+    return;
+}
+ANOTHER SOLUTION WITHOUT USING PQ
+    cin>>n>>a;
+    map<ll,ll>mp;
+    vector<ll>v;
+
+    for(i=0;i<a;i++)
+    {
+        cin>>b;
+        mp[b]++;
+        c=mp[b];
+        if(c>maxi || (c==maxi && b<k))
+        {
+            maxi = c;
+            k = b;
+        }
+        v.push_back(k);
+    }
+    for(auto u : v)cout<<u<<" ";
+
+
+*** NUMBER OF DIVISOR USING SIEVE & PRIME FACTORIZATION IN O(log(n))
+
+if the prime factorization of a number N is p1e1⋅p2e2⋯pkek, where pi are distinct prime numbers, then the number of divisors is: d(n)=(e1+1)*(e2+1)⋯(ek+1)
+
+#define m 1000010
+long long int primes[m], cnt, siv[m];
+void sieve()
+{
+    long long int i, j;
+    for (i=3; i<m; i+=2)
+        if(!siv[i])
+            for (j=i*i; j<m; j+=i+i)
+                siv[j]=1;
+    primes[cnt++]=2;
+    for (i=3; i<m; i+=2)
+        if(!siv[i]) primes[cnt++]=i;
+    return;
+}
+int main()
+{
+    sieve();
+    long long int t,c=0;
+    scanf("%lld",&t);
+    while(t--)
+    {
+        long long int n,sum=1,s,k,i;
+        scanf("%lld",&n);
+
+        for(i=0;i<m && primes[i]*primes[i]<=n;i++)
+        {
+            if(n%primes[i]==0)
+            {
+                k=0;
+                while(n%primes[i]==0)
+                {
+                    n/=primes[i];
+                    k++;
+                    if(n==0 || n==1)
+                        break;
+                }
+                sum*=k+1;
+            }
+
+        }
+
+        if(n!=1)
+            sum*=2;
+        printf("Case %lld: %lld\n",++c,sum-1);
+    }
+    return 0;
+}
+
+
+**** Your answer will be considered correct if its absolute or relative error does not exceed 10−6
+ — formally, if your answer is a
+, and the jury's answer is b
+, your answer will be accepted if (|a−b|/max(1,b))≤10^(−6)
+
+ans : cout<<setprecision(7)<<ans<<endl;
+
+
+** NUMBER OF CYCLE IN A GRAPH
+****  the connected component is a cycle if the degree of each its vertex equals to 2
+
+void dfs(ll vertex)
+{
+    if(g[vertex].size()!=2)cnt=0;
+    //  the connected component is a cycle if the degree of each its vertex equals to 2
+    vis[vertex] = true;
+    for(auto child : g[vertex])
+    {
+        if(vis[child])continue;
+        dfs(child);
+    }
+}
+void solve()
+{
+    ll n,num,i,j,a,b,c,d,e,x,y,l,r,rem;
+    ll ans=0,k=0,sum=0,cnt1=0,maxi=INT_MIN,mini=INT_MAX;
+    ll unknown=0,known=0;
+    string s,s1;
+    cin>>n>>k;
+    while(k--)
+    {
+        cin>>a>>b;
+        g[a].push_back(b);
+        g[b].push_back(a);
+    }
+    for(i=1;i<=n;i++)
+    {
+        if(vis[i]==0)
+        {
+            cnt=1;
+            dfs(i);
+            ans+=cnt;
+        }
+    }
+    cout<<ans<<endl;
+    return;
+}
+
+
+We all know that lucky numbers are positive integers which is a prime numbers that remain prime when their digits are rotated in any circular order. 
+For example, 971 is a lucky number because 971, 719, and 197 are all prime.
+
+But now in the digital world, the concept of lucky numbers has changed. 
+With some changes added it is called Smart numbers. 
+A lucky number is called a smart number when the sum of each of its digits is also a prime number. 
+For example, 971 is a smart number because the sum of each digit is also a prime number and it is also a lucky number.
+
+Shuvo only can identify the lucky numbers. Can you help him to find and count the number of Smart numbers within a given range [1, N]?
+
+const int N = 1e7+10;
+vector<bool>isPrime(N,true);
+bool is_circular_prime(int n){
+    string str = to_string(n);
+    for (int i = 0; i < str.size(); ++i) {
+        rotate(str.begin(), str.begin() + 1, str.end());
+        if (!isPrime[stoi(str)]) {
+            return false;
+        }
+    }
+    return true;
+}
+bool Prime(int n){
+	int sum = 0;
+	while(n>0){
+		int r = n % 10;
+    	sum = sum + r;
+    	n /= 10;
+	}
+	if(isPrime[sum]) return true;
+	else return false;
+}
+int CircularPrime(int n){
+	int cunt = 0;
+    for (int i = 2; i <= n; ++i) {
+        if (is_circular_prime(i)) {
+        	if(Prime(i)) cunt++;
+        }
+    }
+    return cunt;
+}
+int32_t main(){
+	code();
+	int n;	cin >> n;
+	isPrime[0] = isPrime[1] = false;
+	//Sieve Algorithm
+	for(int i=2;i<=N;i++){
+		if(isPrime[i]){
+			for(int j=2*i;j<=N;j+=i){
+				isPrime[j] = false;
+			}
+		}
+	}
+	int ans = CircularPrime(n);
+	cout << ans << endl;
+}
